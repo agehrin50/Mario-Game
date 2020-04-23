@@ -144,13 +144,20 @@ func _physics_process(delta):
 		if(health_level == 1):
 			$AnimatedSprite.play("run")
 			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("disabled")
 		elif(health_level == 2):
 			$AnimatedSprite.play("disabled")
 			$LevelUpAnimatedSprite.play("RUN_level_up")
+			$FireAnimatedSprite.play("disabled")
+		elif(health_level == 3):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("fire_run")
 		if sign($Position2D.position.x) == -1:
 			$Position2D.position.x *= -1
 		$AnimatedSprite.flip_h = false
 		$LevelUpAnimatedSprite.flip_h = false
+		$FireAnimatedSprite.flip_h = false
 	elif Input.is_action_pressed("ui_left"):
 		if 	direction == 1:
 			sprint_timer = 0
@@ -163,23 +170,36 @@ func _physics_process(delta):
 			sprint_timer += 1
 		$AnimatedSprite.flip_h = true
 		$LevelUpAnimatedSprite.flip_h = true
+		$FireAnimatedSprite.flip_h = true
 		if sign($Position2D.position.x) == 1:
 			$Position2D.position.x *= -1
 		if(health_level == 1):
 			$AnimatedSprite.play("run")
 			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("disabled")
 		elif(health_level == 2):
 			$AnimatedSprite.play("disabled")
 			$LevelUpAnimatedSprite.play("RUN_level_up")
+			$FireAnimatedSprite.play("disabled")
+		elif(health_level == 3):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("fire_run")
 	else:
 		velocity.x = 0
 		if on_ground:
 			if(health_level == 1):
 				$AnimatedSprite.play("idle")
 				$LevelUpAnimatedSprite.play("disabled")
+				$FireAnimatedSprite.play("disabled")
 			elif(health_level == 2):
 				$AnimatedSprite.play("disabled")
 				$LevelUpAnimatedSprite.play("IDLE_level_up")
+				$FireAnimatedSprite.play("disabled")
+			elif(health_level == 3):
+				$AnimatedSprite.play("disabled")
+				$LevelUpAnimatedSprite.play("disabled")
+				$FireAnimatedSprite.play("fire_idle")
 			
 	#jumping 
 	if Input.is_action_pressed("ui_up") and jump_timer < 90:
@@ -194,7 +214,7 @@ func _physics_process(delta):
 	else:
 		jump_timer = 0
 	#fireball
-	if Input.is_action_just_pressed("ui_down"):
+	if Input.is_action_just_pressed("ui_down") and health_level == 3:
 		var sfx = "fireball"
 		$AudioStreamPlayer2D.playSound(sfx)
 		var fireball = FIREBALL.instance()
@@ -218,16 +238,28 @@ func _physics_process(delta):
 			if(health_level == 1):
 				$AnimatedSprite.play("jump")
 				$LevelUpAnimatedSprite.play("disabled")
+				$FireAnimatedSprite.play("disabled")
 			elif(health_level == 2):
 				$AnimatedSprite.play("disabled")
 				$LevelUpAnimatedSprite.play("JUMP_level_up")
+				$FireAnimatedSprite.play("disabled")
+			elif(health_level == 3):
+				$AnimatedSprite.play("disabled")
+				$LevelUpAnimatedSprite.play("disabled")
+				$FireAnimatedSprite.play("fire_jump")
 		else:
 			if(health_level == 1):
 				$AnimatedSprite.play("fall")
 				$LevelUpAnimatedSprite.play("disabled")
+				$FireAnimatedSprite.play("disabled")
 			elif(health_level == 2):
 				$AnimatedSprite.play("disabled")
 				$LevelUpAnimatedSprite.play("FALL_level_up")
+				$FireAnimatedSprite.play("disabled")
+			elif(health_level == 3):
+				$AnimatedSprite.play("disabled")
+				$LevelUpAnimatedSprite.play("disabled")
+				$FireAnimatedSprite.play("fire_fall")
 	
 	#If Mario falls off of the stage, he will die.		
 	if position.y > 240:
@@ -306,9 +338,17 @@ func _physics_process(delta):
 				yield(get_tree().create_timer(0.25), "timeout")
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item)
-			
-			
 				
+			if(tile_name == "Sprite17"): #fire power-up
+				health_level = 3 
+				get_node("/root/Globals").player["score"] += 1000
+				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
+				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
+				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
+				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
+				var sfx = "powerup"
+				$AudioStreamPlayer2D.playSound(sfx)
+								
 			if(tile_name == "Sprite12"): # coin
 				get_node("/root/Globals").player["coins"] += 1
 				get_node("/root/Globals").player["score"] += 200
@@ -429,7 +469,10 @@ func _physics_process(delta):
 
 			if(tile_name == "Sprite23" and Input.is_action_pressed("ui_up")): #? block - PowerUp
 				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
-				item = collision.collider.tile_set.find_tile_by_name("Sprite14")
+				if(health_level == 1):
+					item = collision.collider.tile_set.find_tile_by_name("Sprite14")
+				else:
+					item = collision.collider.tile_set.find_tile_by_name("Sprite17")
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
 				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
 				collision.collider.set_cellv(item_tile_pos, item)
@@ -485,7 +528,10 @@ func _physics_process(delta):
 				
 			if(tile_name == "Sprite27" and Input.is_action_pressed("ui_up")):  #brick - power-up
 				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
-				item = collision.collider.tile_set.find_tile_by_name("Sprite14")
+				if(health_level == 1):
+					item = collision.collider.tile_set.find_tile_by_name("Sprite14")
+				else:
+					item = collision.collider.tile_set.find_tile_by_name("Sprite17")
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
 				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
 				collision.collider.set_cellv(item_tile_pos, item)
@@ -513,7 +559,10 @@ func _physics_process(delta):
 				
 			if(tile_name == "Sprite30" and Input.is_action_pressed("ui_up")): #hidden power up
 				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
-				item = collision.collider.tile_set.find_tile_by_name("Sprite14")
+				if(health_level == 1):
+					item = collision.collider.tile_set.find_tile_by_name("Sprite14")
+				else:
+					item = collision.collider.tile_set.find_tile_by_name("Sprite17")
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
 				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
 				collision.collider.set_cellv(item_tile_pos, item)

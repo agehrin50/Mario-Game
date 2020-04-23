@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mario_run_2.png-709b4068ea337b4b102eab103eb70688.stex"
+path="res://.import/fire_run3.png-5028a6c0326db5280a57e287def11d70.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mario-assets/Player/mario_run_2.png"
-dest_files=[ "res://.import/mario_run_2.png-709b4068ea337b4b102eab103eb70688.stex" ]
+source_file="res://Mario-assets/Player/fire_run3.png"
+dest_files=[ "res://.import/fire_run3.png-5028a6c0326db5280a57e287def11d70.stex" ]
 
 [params]
 

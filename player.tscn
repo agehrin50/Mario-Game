@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://player.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -8,6 +8,11 @@
 [ext_resource path="res://Mario-assets/Player/level_up_run_1.png" type="Texture" id=6]
 [ext_resource path="res://Mario-assets/Player/level_up_tryyyy.png" type="Texture" id=7]
 [ext_resource path="res://Mario-assets/Player/level_up_run_3.png" type="Texture" id=8]
+[ext_resource path="res://Mario-assets/Player/fire_jump.png" type="Texture" id=9]
+[ext_resource path="res://Mario-assets/Player/fire_run1.png" type="Texture" id=10]
+[ext_resource path="res://Mario-assets/Player/fire_run3.png" type="Texture" id=11]
+[ext_resource path="res://Mario-assets/Player/fire_run2.png" type="Texture" id=12]
+[ext_resource path="res://Mario-assets/Player/fire_idle.png" type="Texture" id=13]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 11.8573
@@ -61,6 +66,34 @@ extents = Vector2( 0.746933, 18.7905 )
 
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 11.3168, 0.89278 )
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "disabled",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "fire_idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "fire_run",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "fire_fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "fire_jump",
+"speed": 5.0
+} ]
 
 [node name="player" type="KinematicBody2D"]
 position = Vector2( 29.6623, 15.2274 )
@@ -140,6 +173,11 @@ shape = SubResource( 8 )
 modulate = Color( 0.0313726, 0.494118, 0.188235, 1 )
 position = Vector2( -0.221818, -27.0933 )
 shape = SubResource( 9 )
+
+[node name="FireAnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 1.5, 1.5 )
+frames = SubResource( 10 )
+animation = "disabled"
 [connection signal="area_entered" from="StepDetector" to="." method="_on_StepDetector_area_entered"]
 [connection signal="area_entered" from="DeathDetector" to="." method="_on_DeathDetector_area_entered"]
 [connection signal="area_entered" from="DeathDetector_level_up" to="." method="_on_DeathDetector_level_up_area_entered"]
