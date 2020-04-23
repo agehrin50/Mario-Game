@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/breakblock.wav-1afd4b3e7b8606f02a6f0f2d5d293acb.sample"
+
+[deps]
+
+source_file="res://music/breakblock.wav"
+dest_files=[ "res://.import/breakblock.wav-1afd4b3e7b8606f02a6f0f2d5d293acb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

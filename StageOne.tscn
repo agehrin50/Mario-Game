@@ -1,0 +1,337 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://fonts/mario_font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://mario_tiles.tres" type="TileSet" id=5]
+[ext_resource path="res://mario_tiles.gd" type="Script" id=9]
+[ext_resource path="res://Mario-assets/Other/Overworld_mountain.png" type="Texture" id=10]
+[ext_resource path="res://Mario-assets/Other/Overworld_sky.png" type="Texture" id=11]
+[ext_resource path="res://StageOne.gd" type="Script" id=12]
+[ext_resource path="res://MenuPopup.gd" type="Script" id=13]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="StageOne" type="Node2D"]
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_vertical_guides_": [  ]
+}
+
+[node name="player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 19.0805, 168.59 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Camera2D" type="Camera2D" parent="player"]
+position = Vector2( 0, -200 )
+offset = Vector2( 0, -15 )
+current = true
+zoom = Vector2( 1.5, 1.5 )
+limit_left = 0
+limit_top = -15
+drag_margin_h_enabled = true
+drag_margin_left = 1.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="player"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="player/CanvasLayer"]
+margin_left = 8.5805
+margin_top = 10.59
+margin_right = 345.0
+margin_bottom = 60.59
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="VBoxContainer" parent="player/CanvasLayer/HBoxContainer"]
+margin_right = 64.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
+[node name="Score" type="Label" parent="player/CanvasLayer/HBoxContainer/Score"]
+margin_right = 64.0
+margin_bottom = 8.0
+custom_fonts/font = ExtResource( 2 )
+text = "Score"
+
+[node name="Current_Score" type="Label" parent="player/CanvasLayer/HBoxContainer/Score"]
+margin_top = 12.0
+margin_right = 64.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+
+[node name="Coins" type="VBoxContainer" parent="player/CanvasLayer/HBoxContainer"]
+margin_left = 68.0
+margin_right = 132.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
+[node name="Coins" type="Label" parent="player/CanvasLayer/HBoxContainer/Coins"]
+margin_right = 64.0
+margin_bottom = 8.0
+custom_fonts/font = ExtResource( 2 )
+text = "Coins"
+
+[node name="Current_Coins" type="Label" parent="player/CanvasLayer/HBoxContainer/Coins"]
+margin_top = 12.0
+margin_right = 64.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+
+[node name="Lives" type="VBoxContainer" parent="player/CanvasLayer/HBoxContainer"]
+margin_left = 136.0
+margin_right = 200.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
+[node name="Lives" type="Label" parent="player/CanvasLayer/HBoxContainer/Lives"]
+margin_right = 64.0
+margin_bottom = 8.0
+custom_fonts/font = ExtResource( 2 )
+text = "Lives"
+
+[node name="Current_Lives" type="Label" parent="player/CanvasLayer/HBoxContainer/Lives"]
+margin_top = 12.0
+margin_right = 64.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+
+[node name="World" type="VBoxContainer" parent="player/CanvasLayer/HBoxContainer"]
+margin_left = 204.0
+margin_right = 268.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
+[node name="World" type="Label" parent="player/CanvasLayer/HBoxContainer/World"]
+margin_right = 64.0
+margin_bottom = 8.0
+custom_fonts/font = ExtResource( 2 )
+text = "World"
+
+[node name="Current_World" type="Label" parent="player/CanvasLayer/HBoxContainer/World"]
+margin_top = 12.0
+margin_right = 64.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+
+[node name="Time" type="VBoxContainer" parent="player/CanvasLayer/HBoxContainer"]
+margin_left = 272.0
+margin_right = 336.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
+[node name="Time" type="Label" parent="player/CanvasLayer/HBoxContainer/Time"]
+margin_right = 64.0
+margin_bottom = 8.0
+custom_fonts/font = ExtResource( 2 )
+text = "Time"
+
+[node name="Current_Time" type="Label" parent="player/CanvasLayer/HBoxContainer/Time"]
+margin_top = 12.0
+margin_right = 64.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+
+[node name="MenuPopup" type="Popup" parent="player/CanvasLayer"]
+pause_mode = 2
+margin_left = 68.0
+margin_top = -2.0
+margin_right = 581.0
+margin_bottom = 209.0
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="player/CanvasLayer/MenuPopup"]
+margin_left = 85.0
+margin_top = 55.0
+margin_right = 235.0
+margin_bottom = 125.0
+color = Color( 0.313726, 0.313726, 0.313726, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Resume" type="ColorRect" parent="player/CanvasLayer/MenuPopup"]
+margin_left = 95.0
+margin_top = 63.0
+margin_right = 225.0
+margin_bottom = 78.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="player/CanvasLayer/MenuPopup/Resume"]
+margin_right = 130.0
+margin_bottom = 16.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "RESUME GAME"
+align = 1
+valign = 1
+
+[node name="Save_Game" type="ColorRect" parent="player/CanvasLayer/MenuPopup"]
+margin_left = 95.0
+margin_top = 83.0
+margin_right = 225.0
+margin_bottom = 98.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="player/CanvasLayer/MenuPopup/Save_Game"]
+margin_right = 130.0
+margin_bottom = 16.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "SAVE GAME"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="ColorRect" parent="player/CanvasLayer/MenuPopup"]
+margin_left = 95.0
+margin_top = 103.0
+margin_right = 225.0
+margin_bottom = 118.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit_Game" type="Label" parent="player/CanvasLayer/MenuPopup/Quit"]
+margin_right = 129.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "QUIT GAME"
+align = 1
+valign = 1
+
+[node name="Popup" type="Popup" parent="player/CanvasLayer/MenuPopup"]
+visible = true
+margin_left = 60.0
+margin_top = 35.0
+margin_right = 180.0
+margin_bottom = 51.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="player/CanvasLayer/MenuPopup/Popup"]
+margin_left = 25.0
+margin_right = 175.0
+margin_bottom = 15.0
+color = Color( 0.313726, 0.313726, 0.313726, 1 )
+
+[node name="Label" type="Label" parent="player/CanvasLayer/MenuPopup/Popup/ColorRect"]
+margin_right = 151.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Saving Game..."
+align = 1
+valign = 1
+
+[node name="mario_tiles" type="TileMap" parent="."]
+tile_set = ExtResource( 5 )
+cell_size = Vector2( 15, 15 )
+cell_quadrant_size = 13
+cell_custom_transform = Transform2D( 15, 0, 0, 15, 0, 0 )
+format = 1
+script = ExtResource( 9 )
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 768, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 10 )
+centered = false
+offset = Vector2( 0, 37 )
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2"]
+motion_mirroring = Vector2( 768, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground2/ParallaxLayer"]
+texture = ExtResource( 11 )
+centered = false
+offset = Vector2( 0, -125 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( -8, 200 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2( -8, 184 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource( 1 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2( -8, 168 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource( 1 )
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2( -8, 152 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+shape = SubResource( 1 )
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="."]
+position = Vector2( -8, 136 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
+shape = SubResource( 1 )
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="."]
+position = Vector2( -8, 120 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D6"]
+shape = SubResource( 1 )
+
+[node name="StaticBody2D7" type="StaticBody2D" parent="."]
+position = Vector2( -8, 104 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D7"]
+shape = SubResource( 1 )
+
+[node name="counter" type="Timer" parent="."]
+process_mode = 0
+autostart = true
+[connection signal="tree_exited" from="." to="." method="_on_StageOne_tree_exited"]
+[connection signal="timeout" from="counter" to="player" method="_on_counter_timeout"]

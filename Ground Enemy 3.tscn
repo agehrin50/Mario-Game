@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://ground_enemy3.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://Ground Enemy 3.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4.93485, 6.563 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 7.08838, 0.836464 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 1.16024, 5.80828 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 1.21302, 5.50744 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 1.1554, 1.36863 )
+
+[node name="Ground Enemy 3" type="KinematicBody2D"]
+script = ExtResource( 3 )
+
+[node name="Position2D" type="Position2D" parent="."]
+
+[node name="BodyCol" type="CollisionShape2D" parent="."]
+position = Vector2( -0.220366, -0.440733 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -0.152167, -0.409005 )
+frames = ExtResource( 1 )
+animation = "stunned"
+
+[node name="StompDetector" type="Area2D" parent="."]
+position = Vector2( -0.498893, -10.8087 )
+
+[node name="TopCol" type="CollisionShape2D" parent="StompDetector"]
+modulate = Color( 0.00392157, 0.192157, 0.556863, 1 )
+position = Vector2( 0.0747471, 0.10184 )
+shape = SubResource( 2 )
+
+[node name="KillDetector" type="Area2D" parent="."]
+position = Vector2( -0.585389, -10.6387 )
+
+[node name="LeftCol" type="CollisionShape2D" parent="KillDetector"]
+modulate = Color( 0.00784314, 0.466667, 0.188235, 1 )
+position = Vector2( -6.41236, 10.1529 )
+shape = SubResource( 3 )
+
+[node name="RightCol" type="CollisionShape2D" parent="KillDetector"]
+modulate = Color( 0.00392157, 0.447059, 0.0431373, 1 )
+position = Vector2( 7.25681, 9.76369 )
+shape = SubResource( 4 )
+
+[node name="FallDetector" type="Area2D" parent="."]
+
+[node name="BottomCol" type="CollisionShape2D" parent="FallDetector"]
+modulate = Color( 0.286275, 0.176471, 0.176471, 1 )
+position = Vector2( 4.74991, 5.87141 )
+shape = SubResource( 5 )
+[connection signal="ready" from="." to="." method="_on_Ground_Enemy_3_ready"]
+[connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
+[connection signal="area_entered" from="KillDetector" to="." method="_on_KillDetector_area_entered"]
+[connection signal="body_entered" from="KillDetector" to="." method="_on_KillDetector_body_entered"]

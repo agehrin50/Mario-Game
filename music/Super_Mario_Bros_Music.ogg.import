@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Super_Mario_Bros_Music.ogg-fb8cb32cd69d10aa3081dac2f0b02971.oggstr"
+
+[deps]
+
+source_file="res://music/Super_Mario_Bros_Music.ogg"
+dest_files=[ "res://.import/Super_Mario_Bros_Music.ogg-fb8cb32cd69d10aa3081dac2f0b02971.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Mario-assets/Items/fireball.png" type="Texture" id=1]
+[ext_resource path="res://fireball.gd" type="Script" id=2]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "shoot",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4.9269, 5.38871 )
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends CollisionShape2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[node name="fireball" type="Area2D"]
+position = Vector2( 3.34261, -9.92306 )
+collision_layer = 5
+collision_mask = 5
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 4.18048, 2.31124 )
+scale = Vector2( 0.438451, 0.487797 )
+frames = SubResource( 3 )
+animation = "shoot"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 4.12091, 2.31035 )
+shape = SubResource( 1 )
+script = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 4.09034, 2.26525 )
+scale = Vector2( 0.49971, 0.554903 )
+[connection signal="area_entered" from="." to="." method="_on_fireball_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_fireball_body_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

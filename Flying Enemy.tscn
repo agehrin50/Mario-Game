@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://flying_enemy.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://Flying Enemy 2.gd" type="Script" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 9.1115
+height = 11.6118
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 12.2601, 0.687386 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 1.79684, 8.32721 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 1.63076, 7.49679 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 11.7618, 1.35172 )
+
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 9.94659
+height = 17.9259
+
+[node name="Flying Enemy" type="KinematicBody2D"]
+position = Vector2( 16.6083, 8.63631 )
+script = ExtResource( 4 )
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( -15.944, -8.80239 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -16.1931, -9.54976 )
+frames = ExtResource( 1 )
+animation = "stunned"
+
+[node name="BodyCol" type="CollisionShape2D" parent="."]
+position = Vector2( -16.11, -8.63631 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="StompDetector" type="Area2D" parent="."]
+position = Vector2( -15.944, -19.4317 )
+
+[node name="TopCol" type="CollisionShape2D" parent="StompDetector"]
+modulate = Color( 0.0431373, 0.0196078, 0.717647, 1 )
+position = Vector2( 0, -1.49474 )
+shape = SubResource( 2 )
+
+[node name="KillDetector" type="Area2D" parent="."]
+position = Vector2( -16.1101, -8.96847 )
+
+[node name="LeftCol" type="CollisionShape2D" parent="KillDetector"]
+modulate = Color( 0.0196078, 0.498039, 0.207843, 1 )
+position = Vector2( -15.7779, 0.664341 )
+shape = SubResource( 3 )
+
+[node name="RightCol" type="CollisionShape2D" parent="KillDetector"]
+modulate = Color( 0.0196078, 0.439216, 0.211765, 1 )
+position = Vector2( 16.2761, 0.332169 )
+shape = SubResource( 4 )
+
+[node name="BottomCol" type="CollisionShape2D" parent="KillDetector"]
+modulate = Color( 0.0117647, 0.431373, 0.176471, 1 )
+position = Vector2( 0.166073, 7.97198 )
+shape = SubResource( 5 )
+
+[node name="Body" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="FireballCol" type="CollisionShape2D" parent="Body"]
+modulate = Color( 0.0588235, 0.00392157, 0.00392157, 1 )
+position = Vector2( -15.6658, -8.85459 )
+rotation = 1.5708
+shape = SubResource( 6 )
+[connection signal="ready" from="." to="." method="_on_Flying_Enemy_2_ready"]
+[connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
+[connection signal="area_entered" from="KillDetector" to="." method="_on_KillDetector_area_entered"]
+[connection signal="body_entered" from="KillDetector" to="." method="_on_KillDetector_body_entered"]
+[connection signal="area_entered" from="Body" to="." method="_on_Body_area_entered"]

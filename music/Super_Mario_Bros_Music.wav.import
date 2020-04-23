@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Super_Mario_Bros_Music.wav-7f8135017ac165ca96624343e137c62d.sample"
+
+[deps]
+
+source_file="res://music/Super_Mario_Bros_Music.wav"
+dest_files=[ "res://.import/Super_Mario_Bros_Music.wav-7f8135017ac165ca96624343e137c62d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

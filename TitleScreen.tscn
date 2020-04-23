@@ -1,0 +1,271 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Mario-assets/Other/menu.jpg" type="Texture" id=1]
+[ext_resource path="res://Mario-assets/Other/quit.png" type="Texture" id=2]
+[ext_resource path="res://Mario-assets/Other/play.png" type="Texture" id=3]
+[ext_resource path="res://TitleScreen.gd" type="Script" id=4]
+[ext_resource path="res://Mario-assets/Other/menu pointer.png" type="Texture" id=5]
+[ext_resource path="res://Mario-assets/Other/floppy_disk.png" type="Texture" id=6]
+[ext_resource path="res://Mario-assets/Other/map.png" type="Texture" id=7]
+
+[node name="Node" type="Node"]
+script = ExtResource( 4 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -159.5
+margin_top = -89.0
+margin_right = 159.5
+margin_bottom = 89.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 97.0
+margin_top = 78.0
+margin_right = 222.0
+margin_bottom = 178.0
+rect_min_size = Vector2( 100, 100 )
+size_flags_horizontal = 4
+size_flags_vertical = 8
+custom_constants/separation = 0
+
+[node name="Play" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+margin_right = 125.0
+margin_bottom = 35.0
+texture_normal = ExtResource( 3 )
+texture_focused = ExtResource( 5 )
+
+[node name="Quit" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+margin_top = 35.0
+margin_right = 125.0
+margin_bottom = 70.0
+texture_normal = ExtResource( 2 )
+texture_focused = ExtResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="MarginContainer"]
+show_behind_parent = true
+position = Vector2( 0.655025, 0 )
+scale = Vector2( 0.199147, 0.224809 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="PopupMenu" type="PopupMenu" parent="."]
+margin_left = 78.0
+margin_top = 46.0
+margin_right = 245.0
+margin_bottom = 123.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PopupMenu"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 163.0
+margin_bottom = 22.0
+text = "Load last saved game?"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupMenu"]
+margin_left = 11.0
+margin_top = 25.0
+margin_right = 156.0
+margin_bottom = 69.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Yes" type="Button" parent="PopupMenu/VBoxContainer"]
+margin_right = 145.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="PopupMenu/VBoxContainer/Yes"]
+margin_right = 145.0
+margin_bottom = 20.0
+text = "YES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="No" type="Button" parent="PopupMenu/VBoxContainer"]
+margin_top = 24.0
+margin_right = 145.0
+margin_bottom = 44.0
+
+[node name="Label" type="Label" parent="PopupMenu/VBoxContainer/No"]
+margin_right = 145.0
+margin_bottom = 19.0
+text = "NO"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Load" type="TextureButton" parent="."]
+margin_left = 2.0
+margin_top = 151.0
+margin_right = 34.0
+margin_bottom = 181.0
+texture_normal = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PopupMenu2" type="PopupMenu" parent="."]
+margin_left = 60.0
+margin_top = 13.0
+margin_right = 260.0
+margin_bottom = 170.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PopupMenu2"]
+margin_left = 2.0
+margin_top = 4.0
+margin_right = 197.0
+margin_bottom = 18.0
+text = "Choose Level to Load"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Levels" type="VBoxContainer" parent="PopupMenu2"]
+margin_left = 7.0
+margin_top = 21.0
+margin_right = 194.0
+margin_bottom = 95.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PopupMenu2/Levels"]
+margin_right = 187.0
+margin_bottom = 38.0
+size_flags_vertical = 3
+
+[node name="StageOne" type="VBoxContainer" parent="PopupMenu2/Levels/HBoxContainer"]
+margin_right = 91.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PopupMenu2/Levels/HBoxContainer/StageOne"]
+margin_right = 91.0
+margin_bottom = 14.0
+text = "Stage One"
+align = 1
+
+[node name="1-1" type="Button" parent="PopupMenu2/Levels/HBoxContainer/StageOne"]
+margin_top = 18.0
+margin_right = 91.0
+margin_bottom = 38.0
+text = "1-1"
+
+[node name="StageTwo" type="VBoxContainer" parent="PopupMenu2/Levels/HBoxContainer"]
+margin_left = 95.0
+margin_right = 187.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PopupMenu2/Levels/HBoxContainer/StageTwo"]
+margin_right = 92.0
+margin_bottom = 14.0
+text = "Stage Two"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2-1" type="Button" parent="PopupMenu2/Levels/HBoxContainer/StageTwo"]
+margin_top = 18.0
+margin_right = 92.0
+margin_bottom = 38.0
+text = "2-1"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PopupMenu2/Levels"]
+margin_top = 42.0
+margin_right = 187.0
+margin_bottom = 80.0
+size_flags_vertical = 3
+
+[node name="StageThree" type="VBoxContainer" parent="PopupMenu2/Levels/HBoxContainer2"]
+margin_right = 91.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PopupMenu2/Levels/HBoxContainer2/StageThree"]
+margin_right = 91.0
+margin_bottom = 14.0
+text = "Stage Three"
+align = 1
+
+[node name="StageFour" type="VBoxContainer" parent="PopupMenu2/Levels/HBoxContainer2"]
+margin_left = 95.0
+margin_right = 187.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PopupMenu2/Levels/HBoxContainer2/StageFour"]
+margin_right = 92.0
+margin_bottom = 14.0
+text = "Stage Four"
+align = 1
+
+[node name="4-2" type="Button" parent="PopupMenu2/Levels/HBoxContainer2/StageFour"]
+margin_top = 18.0
+margin_right = 92.0
+margin_bottom = 38.0
+text = "4-2"
+
+[node name="Map" type="TextureButton" parent="."]
+margin_left = 287.0
+margin_top = 152.0
+margin_right = 319.0
+margin_bottom = 178.0
+texture_normal = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Popup" type="Popup" parent="."]
+margin_left = 100.0
+margin_top = 56.0
+margin_right = 223.0
+margin_bottom = 68.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Popup"]
+margin_left = -3.0
+margin_top = 2.0
+margin_right = 124.0
+margin_bottom = 19.0
+color = Color( 0.313726, 0.313726, 0.313726, 1 )
+
+[node name="Label" type="Label" parent="Popup/ColorRect"]
+margin_right = 123.0
+margin_bottom = 17.0
+align = 1
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="PopupMenu/VBoxContainer/Yes" to="." method="_on_Yes_pressed"]
+[connection signal="pressed" from="PopupMenu/VBoxContainer/No" to="." method="_on_No_pressed"]
+[connection signal="pressed" from="Load" to="." method="_on_Load_pressed"]
+[connection signal="pressed" from="PopupMenu2/Levels/HBoxContainer/StageOne/1-1" to="." method="_on_11_pressed"]
+[connection signal="pressed" from="PopupMenu2/Levels/HBoxContainer/StageTwo/2-1" to="." method="_on_21_pressed"]
+[connection signal="pressed" from="PopupMenu2/Levels/HBoxContainer2/StageFour/4-2" to="." method="_on_42_pressed"]
+[connection signal="pressed" from="Map" to="." method="_on_Map_pressed"]

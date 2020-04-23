@@ -1,0 +1,146 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://player.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://player.gd" type="Script" id=2]
+[ext_resource path="res://AudioStreamPlayer2D.gd" type="Script" id=3]
+[ext_resource path="res://Mario-assets/Player/level_up_run_2.png" type="Texture" id=4]
+[ext_resource path="res://Mario-assets/Player/level_up_jump.png" type="Texture" id=5]
+[ext_resource path="res://Mario-assets/Player/level_up_run_1.png" type="Texture" id=6]
+[ext_resource path="res://Mario-assets/Player/level_up_tryyyy.png" type="Texture" id=7]
+[ext_resource path="res://Mario-assets/Player/level_up_run_3.png" type="Texture" id=8]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 11.8573
+height = 18.3538
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 9.44036, 4.40398 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 1.32264, 11.9803 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 1.40049, 12.5068 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 8.33556, 1.18825 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "disabled",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "RUN_level_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "JUMP_level_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "IDLE_level_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "FALL_level_up",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 1.03203, 18.5349 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 0.746933, 18.7905 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 11.3168, 0.89278 )
+
+[node name="player" type="KinematicBody2D"]
+position = Vector2( 29.6623, 15.2274 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 22.0882, -11.5295 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -10.0726, -16.3774 )
+scale = Vector2( 0.419398, 0.517779 )
+frames = ExtResource( 1 )
+animation = "death"
+playing = true
+centered = false
+
+[node name="BodyCol" type="CollisionShape2D" parent="."]
+scale = Vector2( 0.863, 0.753 )
+shape = SubResource( 1 )
+
+[node name="StepDetector" type="Area2D" parent="."]
+monitorable = false
+
+[node name="StepCol" type="CollisionShape2D" parent="StepDetector"]
+modulate = Color( 0, 0.0941176, 0.701961, 1 )
+position = Vector2( -0.159069, 8.14754 )
+shape = SubResource( 2 )
+
+[node name="DeathDetector" type="Area2D" parent="."]
+pause_mode = 2
+position = Vector2( 0.149891, 1.58154 )
+collision_layer = 3
+
+[node name="LeftCol" type="CollisionShape2D" parent="DeathDetector"]
+modulate = Color( 0.109804, 0.619608, 0.00392157, 1 )
+position = Vector2( -12.3753, 0.0329767 )
+shape = SubResource( 3 )
+
+[node name="RightCol" type="CollisionShape2D" parent="DeathDetector"]
+modulate = Color( 0.0156863, 0.588235, 0.145098, 1 )
+position = Vector2( 12.167, 0.69473 )
+shape = SubResource( 4 )
+
+[node name="TopCol" type="CollisionShape2D" parent="DeathDetector"]
+modulate = Color( 0.0117647, 0.52549, 0.258824, 1 )
+position = Vector2( -0.179111, -17.6581 )
+shape = SubResource( 5 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+pause_mode = 2
+script = ExtResource( 3 )
+
+[node name="LevelUpAnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -11.9281, -25.6584 )
+scale = Vector2( 0.379233, 0.386945 )
+frames = SubResource( 6 )
+animation = "disabled"
+centered = false
+
+[node name="DeathDetector_level_up" type="Area2D" parent="."]
+collision_layer = 3
+
+[node name="LeftCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
+modulate = Color( 0.0156863, 0.368627, 0.145098, 1 )
+position = Vector2( -14.4224, -3.46453 )
+shape = SubResource( 7 )
+
+[node name="RightCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
+modulate = Color( 0.0117647, 0.435294, 0.27451, 1 )
+position = Vector2( 15.5675, -4.95234 )
+shape = SubResource( 8 )
+
+[node name="TopCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
+modulate = Color( 0.0313726, 0.494118, 0.188235, 1 )
+position = Vector2( -0.221818, -27.0933 )
+shape = SubResource( 9 )
+[connection signal="area_entered" from="StepDetector" to="." method="_on_StepDetector_area_entered"]
+[connection signal="area_entered" from="DeathDetector" to="." method="_on_DeathDetector_area_entered"]
+[connection signal="area_entered" from="DeathDetector_level_up" to="." method="_on_DeathDetector_level_up_area_entered"]
+[connection signal="body_entered" from="DeathDetector_level_up" to="." method="_on_DeathDetector_level_up_body_entered"]
