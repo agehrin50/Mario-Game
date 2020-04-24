@@ -65,29 +65,37 @@ func setMap():
 				tile_pos = Vector2(j,i)
 				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite5"))
 				
-			if(mainData[i][j] == 'j'):
-				print("Stone - color 2")
+			if(mainData[i][j] == 'j'): #stone - c2
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite44"))
 				
-			if(mainData[i][j] == 'k'):
-				print("Block - color 2")
+			if(mainData[i][j] == 'k'): #block  - c2
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite45"))
 				
-			if(mainData[i][j] == 'l'):
-				print("Brick - color 2")
+			if(mainData[i][j] == 'l'): #brick - c2
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite39"))
 				
-			if(mainData[i][j] == 'm'):
-				print("multi-coin box - c2")
+			if(mainData[i][j] == 'm'): #multi-coin box - c2
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite46"))
 				
-			if(mainData[i][j] == 'n'):
-				print("Power Up - c2")
+			if(mainData[i][j] == 'n'): #powerup - c2
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite47"))
 				
-			if(mainData[i][j] == 'o'):
-				print("star - c2")
+			if(mainData[i][j] == 'o'): #star - c2
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite50"))
 				
-			if(mainData[i][j] == 'p'):
-				print("1up - c2")
+			if(mainData[i][j] == 'p'): #1up - c2
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite48"))
 				
-			if(mainData[i][j] == 'q'):
-				print("Dead Box - c2")
+			if(mainData[i][j] == 'q'): #dead box - c2
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite42"))
 				
 			if(mainData[i][j] == 'r'):
 				print("Vine - c2")

@@ -10,14 +10,14 @@ var enemy4_tile_pos = Vector2(4,4) #keeps the position of the tile the enemy 4 c
 var enemy5_tile_pos = Vector2(5,5) #keeps the position of the tile the flying enemy colided with
 var counter = 300	#Counter for level's time limit
 var loaded = false
-var path = "res://level2-1.csv"
+var path = "res://level1-1.csv"
 var in_pipe = 0  # check if mario is coming out of a pipe
 var pipe = [0, 0]  # tells which pipe mario went down (stage, pipe#)
 
 var player = {
 	"coins": 0,
 	"current_scene": "1-1",
-	"furthest_level": "2-1",
+	"furthest_level": "1-2",
 	"lives": 3,
 	"score": 0,
 }

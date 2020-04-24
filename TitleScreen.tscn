@@ -174,6 +174,11 @@ margin_right = 91.0
 margin_bottom = 38.0
 text = "1-1"
 
+[node name="1-2" type="Button" parent="PopupMenu2/Levels/HBoxContainer/StageOne"]
+margin_right = 12.0
+margin_bottom = 20.0
+text = "1-2"
+
 [node name="StageTwo" type="VBoxContainer" parent="PopupMenu2/Levels/HBoxContainer"]
 margin_left = 95.0
 margin_right = 187.0
@@ -266,6 +271,7 @@ align = 1
 [connection signal="pressed" from="PopupMenu/VBoxContainer/No" to="." method="_on_No_pressed"]
 [connection signal="pressed" from="Load" to="." method="_on_Load_pressed"]
 [connection signal="pressed" from="PopupMenu2/Levels/HBoxContainer/StageOne/1-1" to="." method="_on_11_pressed"]
+[connection signal="pressed" from="PopupMenu2/Levels/HBoxContainer/StageOne/1-2" to="." method="_on_12_pressed"]
 [connection signal="pressed" from="PopupMenu2/Levels/HBoxContainer/StageTwo/2-1" to="." method="_on_21_pressed"]
 [connection signal="pressed" from="PopupMenu2/Levels/HBoxContainer2/StageFour/4-2" to="." method="_on_42_pressed"]
 [connection signal="pressed" from="Map" to="." method="_on_Map_pressed"]

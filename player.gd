@@ -466,7 +466,7 @@ func _physics_process(delta):
 				health_level = temp_health
 				
 				
-			if(tile_name == "Sprite6" and Input.is_action_pressed("ui_up")): #brick
+			if((tile_name == "Sprite6" or tile_name == "Sprite39") and Input.is_action_pressed("ui_up")): #brick
 				if(health_level > 1): #only powered-up Mario can break bricks
 					#code to create brick breaking effect
 					var particleEffect = BRICK_PARTICLE.instance()
@@ -711,6 +711,6 @@ func _on_counter_timeout():
 		get_tree().paused = false
 		if get_node("/root/Globals").player["lives"] > 0:
 			get_tree().reload_current_scene()
-			get_node("/root/Globals").player["lives"] -=1 
+			get_node("/root/Globals").player["lives"] -= 1 
 		else:
 			get_tree().change_scene("res://GameOver.tscn")
