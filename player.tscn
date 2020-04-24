@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://player.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -13,6 +13,11 @@
 [ext_resource path="res://Mario-assets/Player/fire_run3.png" type="Texture" id=11]
 [ext_resource path="res://Mario-assets/Player/fire_run2.png" type="Texture" id=12]
 [ext_resource path="res://Mario-assets/Player/fire_idle.png" type="Texture" id=13]
+[ext_resource path="res://Mario-assets/Player/star_idle.png" type="Texture" id=14]
+[ext_resource path="res://Mario-assets/Player/star_run1.png" type="Texture" id=15]
+[ext_resource path="res://Mario-assets/Player/star_run2.png" type="Texture" id=16]
+[ext_resource path="res://Mario-assets/Player/star_run3.png" type="Texture" id=17]
+[ext_resource path="res://Mario-assets/Player/star_jump.png" type="Texture" id=18]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 11.8573
@@ -92,6 +97,34 @@ animations = [ {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "fire_jump",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "disabled",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 18 ) ],
+"loop": true,
+"name": "star_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "star_idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 18 ) ],
+"loop": true,
+"name": "star_fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "star_run",
 "speed": 5.0
 } ]
 
@@ -178,6 +211,11 @@ shape = SubResource( 9 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 10 )
 animation = "disabled"
+
+[node name="StarAnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 1.5, 1.5 )
+frames = SubResource( 11 )
+animation = "star_jump"
 [connection signal="area_entered" from="StepDetector" to="." method="_on_StepDetector_area_entered"]
 [connection signal="area_entered" from="DeathDetector" to="." method="_on_DeathDetector_area_entered"]
 [connection signal="area_entered" from="DeathDetector_level_up" to="." method="_on_DeathDetector_level_up_area_entered"]

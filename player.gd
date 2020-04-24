@@ -10,7 +10,7 @@ var velocity = Vector2()
 var direction = 1	#Checking the direction Mario is moving to 
 var jump_timer = 0		#Used to increase the jump power of Mario when holding the up arrow
 var sprint_timer = 0 #Used to increase the speed of Mario when holding the down arrow
-var health_level = 1	#Increases when Mario gets mashroom and decreases accordingly
+var health_level = 1	#Increases when Mario gets mushroom and decreases accordingly
 var damage = 0  # Invincibility after getting hit
 var timer
 var hits_left  #used for multi-coin block to randomize how many hits you get
@@ -145,19 +145,28 @@ func _physics_process(delta):
 			$AnimatedSprite.play("run")
 			$LevelUpAnimatedSprite.play("disabled")
 			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("disabled")
 		elif(health_level == 2):
 			$AnimatedSprite.play("disabled")
 			$LevelUpAnimatedSprite.play("RUN_level_up")
 			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("disabled")
 		elif(health_level == 3):
 			$AnimatedSprite.play("disabled")
 			$LevelUpAnimatedSprite.play("disabled")
 			$FireAnimatedSprite.play("fire_run")
+			$StarAnimatedSprite.play("disabled")
+		elif (health_level == 4):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("star_run")
 		if sign($Position2D.position.x) == -1:
 			$Position2D.position.x *= -1
 		$AnimatedSprite.flip_h = false
 		$LevelUpAnimatedSprite.flip_h = false
 		$FireAnimatedSprite.flip_h = false
+		$StarAnimatedSprite.flip_h = false
 	elif Input.is_action_pressed("ui_left"):
 		if 	direction == 1:
 			sprint_timer = 0
@@ -171,20 +180,30 @@ func _physics_process(delta):
 		$AnimatedSprite.flip_h = true
 		$LevelUpAnimatedSprite.flip_h = true
 		$FireAnimatedSprite.flip_h = true
+		$StarAnimatedSprite.flip_h = true
 		if sign($Position2D.position.x) == 1:
 			$Position2D.position.x *= -1
 		if(health_level == 1):
 			$AnimatedSprite.play("run")
 			$LevelUpAnimatedSprite.play("disabled")
 			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("disabled")
 		elif(health_level == 2):
 			$AnimatedSprite.play("disabled")
 			$LevelUpAnimatedSprite.play("RUN_level_up")
 			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("disabled")
 		elif(health_level == 3):
 			$AnimatedSprite.play("disabled")
 			$LevelUpAnimatedSprite.play("disabled")
 			$FireAnimatedSprite.play("fire_run")
+			$StarAnimatedSprite.play("disabled")
+		elif (health_level == 4):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("star_run")
+			
 	else:
 		velocity.x = 0
 		if on_ground:
@@ -192,14 +211,22 @@ func _physics_process(delta):
 				$AnimatedSprite.play("idle")
 				$LevelUpAnimatedSprite.play("disabled")
 				$FireAnimatedSprite.play("disabled")
+				$StarAnimatedSprite.play("disabled")
 			elif(health_level == 2):
 				$AnimatedSprite.play("disabled")
 				$LevelUpAnimatedSprite.play("IDLE_level_up")
 				$FireAnimatedSprite.play("disabled")
+				$StarAnimatedSprite.play("disabled")
 			elif(health_level == 3):
 				$AnimatedSprite.play("disabled")
 				$LevelUpAnimatedSprite.play("disabled")
 				$FireAnimatedSprite.play("fire_idle")
+				$StarAnimatedSprite.play("disabled")
+			elif(health_level == 4):
+				$AnimatedSprite.play("disabled")
+				$LevelUpAnimatedSprite.play("disabled")
+				$FireAnimatedSprite.play("disabled")
+				$StarAnimatedSprite.play("star_idle")
 			
 	#jumping 
 	if Input.is_action_pressed("ui_up") and jump_timer < 90:
@@ -239,27 +266,43 @@ func _physics_process(delta):
 				$AnimatedSprite.play("jump")
 				$LevelUpAnimatedSprite.play("disabled")
 				$FireAnimatedSprite.play("disabled")
+				$StarAnimatedSprite.play("disabled")
 			elif(health_level == 2):
 				$AnimatedSprite.play("disabled")
 				$LevelUpAnimatedSprite.play("JUMP_level_up")
 				$FireAnimatedSprite.play("disabled")
+				$StarAnimatedSprite.play("disabled")
 			elif(health_level == 3):
 				$AnimatedSprite.play("disabled")
 				$LevelUpAnimatedSprite.play("disabled")
 				$FireAnimatedSprite.play("fire_jump")
+				$StarAnimatedSprite.play("disabled")
+			elif(health_level == 4):
+				$AnimatedSprite.play("disabled")
+				$LevelUpAnimatedSprite.play("disabled")
+				$FireAnimatedSprite.play("disabled")
+				$StarAnimatedSprite.play("star_jump")
 		else:
 			if(health_level == 1):
 				$AnimatedSprite.play("fall")
 				$LevelUpAnimatedSprite.play("disabled")
 				$FireAnimatedSprite.play("disabled")
+				$StarAnimatedSprite.play("disabled")
 			elif(health_level == 2):
 				$AnimatedSprite.play("disabled")
 				$LevelUpAnimatedSprite.play("FALL_level_up")
 				$FireAnimatedSprite.play("disabled")
+				$StarAnimatedSprite.play("disabled")
 			elif(health_level == 3):
 				$AnimatedSprite.play("disabled")
 				$LevelUpAnimatedSprite.play("disabled")
 				$FireAnimatedSprite.play("fire_fall")
+				$StarAnimatedSprite.play("disabled")
+			elif(health_level == 4):
+				$AnimatedSprite.play("disabled")
+				$LevelUpAnimatedSprite.play("disabled")
+				$FireAnimatedSprite.play("disabled")
+				$StarAnimatedSprite.play("star_fall")
 	
 	#If Mario falls off of the stage, he will die.		
 	if position.y > 240:
@@ -401,6 +444,8 @@ func _physics_process(delta):
 				get_node("/root/Globals").player["score"] += 1000
 				#Make Mario invincible for a period of time after getting star
 				get_node("/root/Globals").invincible = 1
+				var temp_health = health_level
+				health_level = 4
 				timer.start()
 				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
@@ -416,6 +461,7 @@ func _physics_process(delta):
 				yield(get_tree().create_timer(12), "timeout") 
 				MusicController.play("res://music/Super_Mario_Bros_Music.ogg")
 				MusicController.seek(temp)
+				health_level = temp_health
 				
 				
 			if(tile_name == "Sprite6" and Input.is_action_pressed("ui_up")): #brick
