@@ -63,6 +63,8 @@ func _timeout():
 func _ready():
 	if get_node("/root/Globals").in_pipe:
 		exit_pipe()
+		
+	get_node("/root/Globals").counter = 300
 
 	#sets initial label values upon start of level
 	$CanvasLayer/HBoxContainer/Time/Current_Time.text = str(get_node("/root/Globals").counter)
@@ -690,7 +692,25 @@ func _on_DeathDetector_level_up_area_entered(area):
 					if area.global_position.y > get_node("DeathDetector").global_position.y:
 						return
 
-
+#logic for the level countdown timer
 func _on_counter_timeout():
 	get_node("/root/Globals").counter -=1
 	$CanvasLayer/HBoxContainer/Time/Current_Time.text = str(get_node("/root/Globals").counter)
+	if(get_node("/root/Globals").counter == 100):
+		MusicController.stop()
+		MusicController.play("res://music/hurry-up.wav")
+	if(get_node("/root/Globals").counter == 0):
+		get_tree().paused = true
+		health_level = 0 
+		get_node("BodyCol").disabled = true
+		MusicController.stop()
+		$AnimatedSprite.play("death")
+		var sfx = "mario_dies"
+		$AudioStreamPlayer2D.playSound(sfx)
+		yield(get_tree().create_timer(3.0), "timeout")
+		get_tree().paused = false
+		if get_node("/root/Globals").player["lives"] > 0:
+			get_tree().reload_current_scene()
+			get_node("/root/Globals").player["lives"] -=1 
+		else:
+			get_tree().change_scene("res://GameOver.tscn")
