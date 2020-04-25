@@ -384,7 +384,7 @@ func _physics_process(delta):
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item)
 				
-			if(tile_name == "Sprite17"): #fire power-up
+			if(tile_name == "Sprite17" or tile_name == "Sprite49"): #fire power-up
 				health_level = 3 
 				get_node("/root/Globals").player["score"] += 1000
 				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
@@ -409,7 +409,7 @@ func _physics_process(delta):
 				var sfx = "coin"
 				$AudioStreamPlayer2D.playSound(sfx)
 				
-			if(tile_name == "Sprite15"): #1up
+			if(tile_name == "Sprite15" or tile_name == "Sprite48"): #1up
 				get_node("/root/Globals").player["lives"] += 1
 				get_node("/root/Globals").player["score"] += 1000
 				$CanvasLayer/HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").player["lives"])
@@ -420,7 +420,7 @@ func _physics_process(delta):
 				var sfx = "one_up"
 				$AudioStreamPlayer2D.playSound(sfx)
 				
-			if(tile_name == "Sprite14"): # PowerUp
+			if(tile_name == "Sprite14" or tile_name == "Sprite47"): # PowerUp
 				get_node("/root/Globals").player["score"] += 1000
 				#If Mario gets the mushroom while small, make him bigger
 				if health_level == 1:
@@ -442,7 +442,7 @@ func _physics_process(delta):
 				$AudioStreamPlayer2D.playSound(sfx)
 				
 			
-			if(tile_name == "Sprite18"): #star
+			if(tile_name == "Sprite18" or tile_name == "Sprite50"): #star
 				get_node("/root/Globals").player["score"] += 1000
 				#Make Mario invincible for a period of time after getting star
 				get_node("/root/Globals").invincible = 1

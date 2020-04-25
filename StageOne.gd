@@ -16,6 +16,11 @@ func _ready():
 	get_node("player/Camera2D").limit_right = right_limit * 16 #adjusts camera window based on calculated bound
 	#the bound is multiplied by 16 because of block width in pixels
 	
+	#changes background based on level
+	if(get_node("/root/Globals").player["current_scene"] == "1-2"):
+		get_node("ParallaxBackground/ParallaxLayer/Sprite").texture = load("res://Mario-assets/Other/black_background.png")
+		get_node("ParallaxBackground2/ParallaxLayer/Sprite").texture = load("res://Mario-assets/Other/black_background.png")
+	
 	var ts = map.get_tileset()
 	var uc = map.get_used_cells()
 	for position in uc :
@@ -50,6 +55,12 @@ func _ready():
 			add_child(node)
 			node.set_position(Vector2(position.x *16 ,position.y *16)) #sets position of enemy in terms of pixels
 			map.set_cell(position.x, position.y, -1) #this line remove the tile in TileMap
+			
+		#dynamic background change
+		if(name == "Sprite33" and get_node("/root/Globals").player["current_scene"] == "1-2"):
+			var tile = map.tile_set.find_tile_by_name("Sprite52")
+			var tile_pos = Vector2(position.x, position.y)
+			map.set_cellv(tile_pos, tile) 
 	
 #Stop the music when the level ends
 func _on_StageOne_tree_exited():

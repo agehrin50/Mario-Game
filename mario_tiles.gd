@@ -97,8 +97,9 @@ func setMap():
 				tile_pos = Vector2(j,i)
 				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite42"))
 				
-			if(mainData[i][j] == 'r'):
-				print("Vine - c2")
+			if(mainData[i][j] == 'r'): #vine - c2
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite51"))
 				
 			if(mainData[i][j] == 's'):
 				print("Stone - color 3")
