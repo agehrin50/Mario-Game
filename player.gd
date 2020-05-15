@@ -15,6 +15,7 @@ var damage = 0  # Invincibility after getting hit
 var timer
 var hits_left  #used for multi-coin block to randomize how many hits you get
 var luigi = preload("res://luigi.tres")
+var luigi_big = preload("res://luigi_big.tres")
 
 
 ## Picks where player comes out of pipe
@@ -65,6 +66,8 @@ func _ready():
 	if get_node("/root/Globals").luigi: #set luigi skin
 		$AnimatedSprite.set_sprite_frames(luigi)
 		$AnimatedSprite.scale = Vector2(2,2)
+		$LevelUpAnimatedSprite.set_sprite_frames(luigi_big)
+		$LevelUpAnimatedSprite.scale = Vector2(1.5,1.5)
 	
 	if get_node("/root/Globals").in_pipe:
 		exit_pipe()
