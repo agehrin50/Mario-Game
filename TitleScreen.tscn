@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Mario-assets/Other/menu.jpg" type="Texture" id=1]
 [ext_resource path="res://Mario-assets/Other/quit.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Mario-assets/Other/menu pointer.png" type="Texture" id=5]
 [ext_resource path="res://Mario-assets/Other/floppy_disk.png" type="Texture" id=6]
 [ext_resource path="res://Mario-assets/Other/map.png" type="Texture" id=7]
+[ext_resource path="res://Mario-assets/Other/block_secret.JPG" type="Texture" id=8]
 
 [node name="Node" type="Node"]
 script = ExtResource( 4 )
@@ -154,12 +155,12 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PopupMenu2/Levels"]
 margin_right = 187.0
-margin_bottom = 38.0
+margin_bottom = 62.0
 size_flags_vertical = 3
 
 [node name="StageOne" type="VBoxContainer" parent="PopupMenu2/Levels/HBoxContainer"]
 margin_right = 91.0
-margin_bottom = 38.0
+margin_bottom = 62.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="PopupMenu2/Levels/HBoxContainer/StageOne"]
@@ -175,14 +176,15 @@ margin_bottom = 38.0
 text = "1-1"
 
 [node name="1-2" type="Button" parent="PopupMenu2/Levels/HBoxContainer/StageOne"]
-margin_right = 12.0
-margin_bottom = 20.0
+margin_top = 42.0
+margin_right = 91.0
+margin_bottom = 62.0
 text = "1-2"
 
 [node name="StageTwo" type="VBoxContainer" parent="PopupMenu2/Levels/HBoxContainer"]
 margin_left = 95.0
 margin_right = 187.0
-margin_bottom = 38.0
+margin_bottom = 62.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="PopupMenu2/Levels/HBoxContainer/StageTwo"]
@@ -201,9 +203,9 @@ margin_bottom = 38.0
 text = "2-1"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PopupMenu2/Levels"]
-margin_top = 42.0
+margin_top = 66.0
 margin_right = 187.0
-margin_bottom = 80.0
+margin_bottom = 104.0
 size_flags_vertical = 3
 
 [node name="StageThree" type="VBoxContainer" parent="PopupMenu2/Levels/HBoxContainer2"]
@@ -265,6 +267,38 @@ color = Color( 0.313726, 0.313726, 0.313726, 1 )
 margin_right = 123.0
 margin_bottom = 17.0
 align = 1
+
+[node name="block_secret" type="TextureButton" parent="."]
+margin_left = 270.0
+margin_top = 32.0
+margin_right = 286.0
+margin_bottom = 49.0
+texture_normal = ExtResource( 8 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="secret_menu" type="PopupMenu" parent="."]
+anchor_left = 60.0
+anchor_top = 13.0
+anchor_right = 260.0
+anchor_bottom = 170.0
+margin_left = 270.0
+margin_top = 32.0
+margin_right = 290.0
+margin_bottom = 52.0
+
+[node name="Label" type="Label" parent="secret_menu"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "Enter cheat code"
+
+[node name="LineEdit" type="LineEdit" parent="secret_menu"]
+margin_right = 58.0
+margin_bottom = 24.0
+max_length = 20
+expand_to_text_length = true
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="pressed" from="PopupMenu/VBoxContainer/Yes" to="." method="_on_Yes_pressed"]
@@ -275,3 +309,5 @@ align = 1
 [connection signal="pressed" from="PopupMenu2/Levels/HBoxContainer/StageTwo/2-1" to="." method="_on_21_pressed"]
 [connection signal="pressed" from="PopupMenu2/Levels/HBoxContainer2/StageFour/4-2" to="." method="_on_42_pressed"]
 [connection signal="pressed" from="Map" to="." method="_on_Map_pressed"]
+[connection signal="pressed" from="block_secret" to="." method="_on_block_secret_pressed"]
+[connection signal="text_entered" from="secret_menu/LineEdit" to="." method="_on_LineEdit_text_entered"]

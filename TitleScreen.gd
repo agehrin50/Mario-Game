@@ -95,3 +95,24 @@ func _on_42_pressed():
 		$Popup/ColorRect/Label.text = "Level not available"
 		yield(get_tree().create_timer(1.0), "timeout")
 		$Popup.hide()
+
+
+func _on_block_secret_pressed():
+	$secret_menu.popup()
+	get_node("secret_menu/LineEdit").clear()
+	get_node("secret_menu/LineEdit").set_global_position(Vector2(10,15)) #position user input box
+
+func _on_LineEdit_text_entered(new_text):
+	if new_text == "b178669": #cheat code enabled
+		get_node("/root/Globals").luigi = true
+		$Popup.popup()
+		$Popup/ColorRect/Label.text = "LUIGI TIME"
+		yield(get_tree().create_timer(1.0), "timeout")
+		$Popup.hide()
+		$secret_menu.hide()
+	else:
+		$Popup.popup()
+		$Popup/ColorRect/Label.text = "INVALID CODE"
+		yield(get_tree().create_timer(1.0), "timeout")
+		$Popup.hide()
+		$secret_menu.hide()
