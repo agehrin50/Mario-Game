@@ -17,36 +17,6 @@ var hits_left  #used for multi-coin block to randomize how many hits you get
 var luigi = preload("res://luigi.tres")
 var luigi_big = preload("res://luigi_big.tres")
 
-
-## Picks where player comes out of pipe
-func exit_pipe():
-	get_node("/root/Globals").in_pipe = 0
-	var scene = get_node("/root/Globals").player["current_scene"]
-	var stage_in = get_node("/root/Globals").pipe[0]
-	var pipe_number = get_node("/root/Globals").pipe[1]
-
-	if scene == "1-1":
-		# pipe 1: (209, 173)  |--|  (226, 173)
-		# pipe 2: (449, 173)  |--|  (466, 173)
-		# pipe 3: (644, 173)  |--|  (660, 173)
-		if pipe_number == 1:
-			global_position = Vector2(228, 173)
-		elif pipe_number == 2:
-			global_position = Vector2(468, 173)
-		else:
-			global_position = Vector2(660, 173)
-	if scene == "2-1":
-		print(get_node("/root/Globals").pipe)
-		# pipe 1: (464, 143)  |--|  (478, 143)
-		# pipe 2: (780, 143)  |--|  (795, 143)
-		# pipe 2: (1048, 143)  |--|  (1066, 143)
-		if pipe_number == 1:
-			global_position = Vector2(480, 143)
-		elif pipe_number == 2:
-			global_position = Vector2(797, 143)
-		else:
-			global_position = Vector2(1066, 143)
-
 #Initializing the timer
 func _init():
 	timer = Timer.new()
@@ -69,8 +39,8 @@ func _ready():
 		$LevelUpAnimatedSprite.set_sprite_frames(luigi_big)
 		$LevelUpAnimatedSprite.scale = Vector2(1.5,1.5)
 	
-	if get_node("/root/Globals").in_pipe:
-		exit_pipe()
+#	if get_node("/root/Globals").in_pipe:
+#		exit_pipe()
 		
 	get_node("/root/Globals").counter = 300
 
@@ -86,56 +56,6 @@ func _ready():
 		#Disabling hitboxes of big Mario
 	get_node("DeathDetector_level_up").set_collision_mask(0)
 	get_node("DeathDetector_level_up").set_collision_layer(0)
-
-## Sends the player to a pipe from another level
-func pipe_level():
-	get_node("/root/Globals").in_pipe = 1
-	get_node("BodyCol").disabled = true
-	var x = get_node("/root/Globals").player["current_scene"]
-	var pipe_number
-
-	if x == "1-1":
-		get_node("/root/Globals").player["furthest_level"] = "2-1"
-		get_node("/root/Globals").player["current_scene"] = "2-1"
-		get_node("/root/Globals").path = "res://level2-1.csv"
-		# pipe 1: (209, 173)  |--|  (226, 173)
-		# pipe 2: (449, 173)  |--|  (466, 173)
-		# pipe 3: (644, 173)  |--|  (660, 173)
-		if position.x > 209 and position.x < 226:
-			pipe_number = 3
-		elif position.x > 449 and position.x < 466:
-			pipe_number = 3
-		elif position.x > 644 and position.x < 660:
-			pipe_number = 3
-		get_node("/root/Globals").pipe = ["1-1", pipe_number]
-		print(get_node("/root/Globals").pipe)
-	elif x == "2-1":
-		get_node("/root/Globals").player["furthest_level"] = "1-1"
-		get_node("/root/Globals").player["current_scene"] = "1-1"
-		get_node("/root/Globals").path = "res://level_one.csv"
-		# pipe 1: (464, 143)  |--|  (478, 143)
-		# pipe 2: (780, 143)  |--|  (795, 143)
-		# pipe 2: (1048, 143)  |--|  (1066, 143)
-		if position.x > 464 and position.x < 478:
-			pipe_number = 1
-		elif position.x > 780 and position.x < 795:
-			pipe_number = 1
-		elif position.x > 1048 and position.x < 1066:
-			pipe_number = 1
-		get_node("/root/Globals").pipe = ["2-1", pipe_number]
-
-	get_tree().change_scene("res://StageOne.tscn")
-
-## called on player input
-func _input(event):
-	var tilemap = get_node("../mario_tiles")
-	var tilemap_position = (global_position/tilemap.cell_size).floor()
-
-	# if attempting to go through pipe
-	if event.is_action_pressed("ui_down"):
-		# check if tile below is "pipe top" which is 32 on our tilemap
-		if tilemap.get_cell(tilemap_position.x, tilemap_position.y+1) == 32:
-			pipe_level()
 
 #Used to run Mario
 func _physics_process(delta):
