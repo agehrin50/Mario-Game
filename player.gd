@@ -14,6 +14,7 @@ var health_level = 1	#Increases when Mario gets mushroom and decreases according
 var damage = 0  # Invincibility after getting hit
 var timer
 var hits_left  #used for multi-coin block to randomize how many hits you get
+var luigi = preload("res://luigi.tres")
 
 
 ## Picks where player comes out of pipe
@@ -61,6 +62,10 @@ func _timeout():
 	timer.stop()
 
 func _ready():
+	if get_node("/root/Globals").luigi: #set luigi skin
+		$AnimatedSprite.set_sprite_frames(luigi)
+		$AnimatedSprite.scale = Vector2(2,2)
+	
 	if get_node("/root/Globals").in_pipe:
 		exit_pipe()
 		

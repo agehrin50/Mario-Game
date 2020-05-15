@@ -79,11 +79,6 @@ animations = [ {
 "name": "disabled",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 13 ) ],
-"loop": true,
-"name": "fire_idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "fire_run",
@@ -98,6 +93,11 @@ animations = [ {
 "loop": true,
 "name": "fire_jump",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "fire_idle",
+"speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=11]
@@ -109,7 +109,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 18 ) ],
 "loop": true,
-"name": "star_jump",
+"name": "star_fall",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 14 ) ],
@@ -117,14 +117,14 @@ animations = [ {
 "name": "star_idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 18 ) ],
-"loop": true,
-"name": "star_fall",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ],
 "loop": true,
 "name": "star_run",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 18 ) ],
+"loop": true,
+"name": "star_jump",
 "speed": 5.0
 } ]
 
@@ -140,7 +140,7 @@ position = Vector2( 22.0882, -11.5295 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -10.0726, -16.3774 )
-scale = Vector2( 0.419398, 0.517779 )
+scale = Vector2( 0.5, 0.5 )
 frames = ExtResource( 1 )
 animation = "death"
 playing = true

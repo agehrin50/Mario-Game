@@ -99,7 +99,7 @@ func _on_42_pressed():
 
 func _on_block_secret_pressed():
 	$secret_menu.popup()
-	get_node("secret_menu/LineEdit").clear()
+	get_node("secret_menu/LineEdit").clear() #resets user input box
 	get_node("secret_menu/LineEdit").set_global_position(Vector2(10,15)) #position user input box
 
 func _on_LineEdit_text_entered(new_text):
