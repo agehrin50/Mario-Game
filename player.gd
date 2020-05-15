@@ -38,9 +38,6 @@ func _ready():
 		$AnimatedSprite.scale = Vector2(2,2)
 		$LevelUpAnimatedSprite.set_sprite_frames(luigi_big)
 		$LevelUpAnimatedSprite.scale = Vector2(1.5,1.5)
-	
-#	if get_node("/root/Globals").in_pipe:
-#		exit_pipe()
 		
 	get_node("/root/Globals").counter = 300
 

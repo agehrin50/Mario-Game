@@ -12,8 +12,6 @@ var counter = 300	#Counter for level's time limit
 var loaded = false
 var luigi = false #luigi easter egg bool
 var path = "res://level1-1.csv"
-var in_pipe = 0  # check if mario is coming out of a pipe
-var pipe = [0, 0]  # tells which pipe mario went down (stage, pipe#)
 
 var player = {
 	"coins": 0,
