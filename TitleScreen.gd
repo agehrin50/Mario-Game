@@ -2,16 +2,16 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$MarginContainer/VBoxContainer/Play.grab_focus()
-	$MarginContainer/VBoxContainer/Quit.grab_focus()
+	$Play.grab_focus()
+	$Quit.grab_focus()
 
 #If user hovers over the play or Quit button, the pointer will indicate that
 #on the screen	
 func _physics_process(delta):
-	if $MarginContainer/VBoxContainer/Play.is_hovered() == true:
-		$MarginContainer/VBoxContainer/Play.grab_focus()
-	if $MarginContainer/VBoxContainer/Quit.is_hovered() == true:
-		$MarginContainer/VBoxContainer/Quit.grab_focus()
+	if $Play.is_hovered() == true:
+		$Play.grab_focus()
+	if $Quit.is_hovered() == true:
+		$Quit.grab_focus()
 
 #When Play pressed, the scene will change and game will start
 func _on_Play_pressed():
@@ -49,6 +49,8 @@ func _on_11_pressed():
 
 func _on_Map_pressed():
 	$PopupMenu2.popup()
+	if get_node("/root/Globals").level_skip:
+		get_node("/root/Globals").player["furthest_level"] = "4-2"
 
 func _on_12_pressed():
 	var x = get_node("/root/Globals").player["furthest_level"]
@@ -107,6 +109,13 @@ func _on_LineEdit_text_entered(new_text):
 		get_node("/root/Globals").luigi = true
 		$Popup.popup()
 		$Popup/ColorRect/Label.text = "LUIGI TIME"
+		yield(get_tree().create_timer(1.0), "timeout")
+		$Popup.hide()
+		$secret_menu.hide()
+	elif new_text == "lemon": #level select cheat code
+		get_node("/root/Globals").level_skip = true
+		$Popup.popup()
+		$Popup/ColorRect/Label.text = "LEVEL SELECT"
 		yield(get_tree().create_timer(1.0), "timeout")
 		$Popup.hide()
 		$secret_menu.hide()
