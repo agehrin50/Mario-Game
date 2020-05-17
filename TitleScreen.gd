@@ -21,6 +21,10 @@ func _on_Play_pressed():
 		get_node("/root/Globals").path = "res://level2-1.csv"
 	if get_node("/root/Globals").player["current_scene"] == "1-2":
 		get_node("/root/Globals").path = "res://level1-2.csv"
+	if get_node("/root/Globals").player["current_scene"] == "1-3":
+		get_node("/root/Globals").path = "res://level1-3.csv"
+	if get_node("/root/Globals").player["current_scene"] == "1-4":
+		get_node("/root/Globals").path = "res://level1-4.csv"
 	get_tree().change_scene("res://StageOne.tscn")
 
 #Exiting the game if quit pressed
@@ -125,3 +129,35 @@ func _on_LineEdit_text_entered(new_text):
 		yield(get_tree().create_timer(1.0), "timeout")
 		$Popup.hide()
 		$secret_menu.hide()
+
+
+func _on_14_pressed():
+	var x = get_node("/root/Globals").player["furthest_level"]
+	if x == "1-4" or x == "4-2":
+		get_node("/root/Globals").player["current_scene"] = "1-4"
+		$Popup.popup()
+		$Popup/ColorRect/Label.text = "Loading level: 1-4..."
+		$PopupMenu2.hide()
+		yield(get_tree().create_timer(1.0), "timeout")
+		$Popup.hide()
+	else:
+		$Popup.popup()
+		$Popup/ColorRect/Label.text = "Level not available"
+		yield(get_tree().create_timer(1.0), "timeout")
+		$Popup.hide()
+
+
+func _on_13_pressed():
+	var x = get_node("/root/Globals").player["furthest_level"]
+	if x == "1-3" or x == "4-2":
+		get_node("/root/Globals").player["current_scene"] = "1-3"
+		$Popup.popup()
+		$Popup/ColorRect/Label.text = "Loading level: 1-3..."
+		$PopupMenu2.hide()
+		yield(get_tree().create_timer(1.0), "timeout")
+		$Popup.hide()
+	else:
+		$Popup.popup()
+		$Popup/ColorRect/Label.text = "Level not available"
+		yield(get_tree().create_timer(1.0), "timeout")
+		$Popup.hide()
