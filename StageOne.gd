@@ -9,16 +9,12 @@ var enemy3 = preload("res://Ground Enemy 3.tscn") #load enemy 3
 var enemy4 = preload("res://Ground Enemy 4.tscn") #load enemy 4
 var player = preload("res://player.tscn") #load player
 
-func _ready():
-	#TODO: dynamically instance player 
-	var player_node = player.instance()
-	add_child(player_node)
-	
+func _ready():	
 	#Playing the Mario Background Music
 	MusicController.play("res://music/Super_Mario_Bros_Music.ogg")
 	#Represents the end of the level for camara purposes
-	var right_limit =  calculate_x_bounds() -3 #calculates right bound plus 3 tiles of error
-	get_node("player/Camera2D").limit_right = right_limit * 16 #adjusts camera window based on calculated bound
+	#var right_limit =  calculate_x_bounds() -3 #calculates right bound plus 3 tiles of error
+	#get_node("player/Camera2D").limit_right = right_limit * 16 #adjusts camera window based on calculated bound
 	#the bound is multiplied by 16 because of block width in pixels
 	
 	#changes background based on level
@@ -57,6 +53,13 @@ func _ready():
 		
 		if name == "Sprite38":
 			var node = enemy4.instance()
+			add_child(node)
+			node.set_position(Vector2(position.x *16 ,position.y *16)) #sets position of enemy in terms of pixels
+			map.set_cell(position.x, position.y, -1) #this line remove the tile in TileMap
+			
+			#dynamically instance player 
+		if name == "Sprite62": 
+			var node = player.instance()
 			add_child(node)
 			node.set_position(Vector2(position.x *16 ,position.y *16)) #sets position of enemy in terms of pixels
 			map.set_cell(position.x, position.y, -1) #this line remove the tile in TileMap

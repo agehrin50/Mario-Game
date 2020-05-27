@@ -268,4 +268,7 @@ func setMap():
 			if(mainData[i][j] == '\\'): #treetop right
 				tile_pos = Vector2(j,i)
 				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite61"))
+			if(mainData[i][j] == '+'): #player spawn
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite62"))
 	return mainData
