@@ -1013,19 +1013,3 @@ extents = Vector2( 16, 8 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 8, 8 )
 } ]
 60/z_index = 0
-61/name = "Sprite62"
-61/texture = ExtResource( 2 )
-61/tex_offset = Vector2( 0, 0 )
-61/modulate = Color( 1, 1, 1, 1 )
-61/region = Rect2( 112, 128, 16, 16 )
-61/tile_mode = 0
-61/occluder_offset = Vector2( 8, 8 )
-61/navigation_offset = Vector2( 8, 8 )
-61/shapes = [ {
-"autotile_coord": Vector2( 0, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 5 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 8, 8 )
-} ]
-61/z_index = 0

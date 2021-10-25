@@ -585,20 +585,6 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite61/StaticBody2D"]
 shape = SubResource( 5 )
 
-[node name="Sprite62" type="Sprite" parent="."]
-position = Vector2( 59.1891, 28.9645 )
-texture = ExtResource( 2 )
-region_enabled = true
-region_rect = Rect2( 112, 128, 16, 16 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Sprite62"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite62/StaticBody2D"]
-shape = SubResource( 5 )
-
 [node name="Sprite54" type="Sprite" parent="."]
 position = Vector2( 244.979, 28.9645 )
 texture = ExtResource( 2 )
