@@ -7,13 +7,8 @@ var enemy1 = preload("res://Ground Enemy 2.tscn") #load enemy 1
 var enemy2 = preload("res://Flying Enemy.tscn") #load enemy 2
 var enemy3 = preload("res://Ground Enemy 3.tscn") #load enemy 3
 var enemy4 = preload("res://Ground Enemy 4.tscn") #load enemy 4
-var player = preload("res://player.tscn") #load player
 
 func _ready():
-	#TODO: dynamically instance player 
-	var player_node = player.instance()
-	add_child(player_node)
-	
 	#Playing the Mario Background Music
 	MusicController.play("res://music/Super_Mario_Bros_Music.ogg")
 	#Represents the end of the level for camara purposes

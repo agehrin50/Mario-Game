@@ -24,7 +24,7 @@ func _init():
 	timer.wait_time = 10
 	timer.connect("timeout", self, "_timeout")
 
-#Time used for the invincibility of Mario when pick up the red mushroom or colides 
+#Time used for the invinsibility of Mario when pick up the red mushroom or colides 
 #with an enemy
 func _timeout():
 	get_node("/root/Globals").invincible = 0
