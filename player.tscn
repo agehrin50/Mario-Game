@@ -1,6 +1,6 @@
 [gd_scene load_steps=30 format=2]
 
-[ext_resource path="res://player.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://mario_small.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
 [ext_resource path="res://AudioStreamPlayer2D.gd" type="Script" id=3]
 [ext_resource path="res://Mario-assets/Player/level_up_run_2.png" type="Texture" id=4]
@@ -19,37 +19,27 @@
 [ext_resource path="res://Mario-assets/Player/star_run3.png" type="Texture" id=17]
 [ext_resource path="res://Mario-assets/Player/star_jump.png" type="Texture" id=18]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=2]
 radius = 11.8573
 height = 18.3538
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 9.44036, 4.40398 )
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 1.32264, 11.9803 )
-
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 1.40049, 12.5068 )
+extents = Vector2( 2, 11.9803 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 8.33556, 1.18825 )
+extents = Vector2( 2, 12.5068 )
 
-[sub_resource type="SpriteFrames" id=6]
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 8.33556, 3 )
+
+[sub_resource type="SpriteFrames" id=7]
 animations = [ {
 "frames": [  ],
 "loop": true,
 "name": "disabled",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "RUN_level_up",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "JUMP_level_up",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ) ],
@@ -59,34 +49,34 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
+"name": "JUMP_level_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
 "name": "FALL_level_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "RUN_level_up",
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 1.03203, 18.5349 )
-
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 0.746933, 18.7905 )
+extents = Vector2( 2, 18.5349 )
 
 [sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 2, 18.7905 )
+
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 11.3168, 0.89278 )
 
-[sub_resource type="SpriteFrames" id=10]
+[sub_resource type="SpriteFrames" id=11]
 animations = [ {
 "frames": [  ],
 "loop": true,
 "name": "disabled",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ) ],
-"loop": true,
-"name": "fire_run",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "fire_fall",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 9 ) ],
@@ -98,9 +88,19 @@ animations = [ {
 "loop": true,
 "name": "fire_idle",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "fire_fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "fire_run",
+"speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=11]
+[sub_resource type="SpriteFrames" id=12]
 animations = [ {
 "frames": [  ],
 "loop": true,
@@ -112,9 +112,9 @@ animations = [ {
 "name": "star_fall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 14 ) ],
+"frames": [ ExtResource( 18 ) ],
 "loop": true,
-"name": "star_idle",
+"name": "star_jump",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ],
@@ -122,99 +122,90 @@ animations = [ {
 "name": "star_run",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 18 ) ],
+"frames": [ ExtResource( 14 ) ],
 "loop": true,
-"name": "star_jump",
+"name": "star_idle",
 "speed": 5.0
 } ]
 
 [node name="player" type="KinematicBody2D"]
-position = Vector2( 29.6623, 15.2274 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Position2D" type="Position2D" parent="."]
-position = Vector2( 22.0882, -11.5295 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -10.0726, -16.3774 )
 scale = Vector2( 0.5, 0.5 )
 frames = ExtResource( 1 )
 animation = "death"
 playing = true
-centered = false
 
 [node name="BodyCol" type="CollisionShape2D" parent="."]
-scale = Vector2( 0.863, 0.753 )
-shape = SubResource( 1 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 2 )
 
 [node name="StepDetector" type="Area2D" parent="."]
 monitorable = false
 
 [node name="StepCol" type="CollisionShape2D" parent="StepDetector"]
 modulate = Color( 0, 0.0941176, 0.701961, 1 )
-position = Vector2( -0.159069, 8.14754 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="DeathDetector" type="Area2D" parent="."]
 pause_mode = 2
-position = Vector2( 0.149891, 1.58154 )
 collision_layer = 3
 
 [node name="LeftCol" type="CollisionShape2D" parent="DeathDetector"]
 modulate = Color( 0.109804, 0.619608, 0.00392157, 1 )
-position = Vector2( -12.3753, 0.0329767 )
-shape = SubResource( 3 )
+position = Vector2( -10, 0 )
+shape = SubResource( 4 )
 
 [node name="RightCol" type="CollisionShape2D" parent="DeathDetector"]
 modulate = Color( 0.0156863, 0.588235, 0.145098, 1 )
-position = Vector2( 12.167, 0.69473 )
-shape = SubResource( 4 )
+position = Vector2( 10, 0 )
+shape = SubResource( 5 )
 
 [node name="TopCol" type="CollisionShape2D" parent="DeathDetector"]
 modulate = Color( 0.0117647, 0.52549, 0.258824, 1 )
-position = Vector2( -0.179111, -17.6581 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 pause_mode = 2
 script = ExtResource( 3 )
 
 [node name="LevelUpAnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -11.9281, -25.6584 )
-scale = Vector2( 0.379233, 0.386945 )
-frames = SubResource( 6 )
+scale = Vector2( 0.4, 0.4 )
+frames = SubResource( 7 )
 animation = "disabled"
-centered = false
+playing = true
 
 [node name="DeathDetector_level_up" type="Area2D" parent="."]
 collision_layer = 3
 
 [node name="LeftCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
 modulate = Color( 0.0156863, 0.368627, 0.145098, 1 )
-position = Vector2( -14.4224, -3.46453 )
-shape = SubResource( 7 )
+position = Vector2( -10, 0 )
+shape = SubResource( 8 )
 
 [node name="RightCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
 modulate = Color( 0.0117647, 0.435294, 0.27451, 1 )
-position = Vector2( 15.5675, -4.95234 )
-shape = SubResource( 8 )
+position = Vector2( 10, 0 )
+shape = SubResource( 9 )
 
 [node name="TopCol" type="CollisionShape2D" parent="DeathDetector_level_up"]
 modulate = Color( 0.0313726, 0.494118, 0.188235, 1 )
-position = Vector2( -0.221818, -27.0933 )
-shape = SubResource( 9 )
+shape = SubResource( 10 )
 
 [node name="FireAnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 1.5, 1.5 )
-frames = SubResource( 10 )
+frames = SubResource( 11 )
 animation = "disabled"
 
 [node name="StarAnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 1.5, 1.5 )
-frames = SubResource( 11 )
+frames = SubResource( 12 )
 animation = "star_jump"
 [connection signal="area_entered" from="StepDetector" to="." method="_on_StepDetector_area_entered"]
 [connection signal="area_entered" from="DeathDetector" to="." method="_on_DeathDetector_area_entered"]

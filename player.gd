@@ -279,7 +279,7 @@ func _physics_process(delta):
 		collision = get_slide_collision(i) #info about collision is stored in collision var
 					
 		#check to make sure player is colliding with a tile from tile map
-		if collision.collider is TileMap:
+		if collision != null and collision.collider is TileMap:
 			get_node("/root/Globals").tile_pos = collision.collider.world_to_map(position)
 			get_node("/root/Globals").tile_pos -= collision.normal
 			tile_id = collision.collider.get_cellv(get_node("/root/Globals").tile_pos)
@@ -351,6 +351,8 @@ func _physics_process(delta):
 				if health_level == 1:
 					get_node("BodyCol").scale.x = 1
 					get_node("BodyCol").scale.y = 1
+					#get_node("DeathDetector_level_up/LeftCol").position.x = -13
+					#get_node("DeathDetector_level_up/LeftCol").position.x = -13
 					health_level += 1
 				#Disables small mario hitbox and enables big mario hitbox
 				get_node("DeathDetector").set_collision_mask(0)
@@ -606,8 +608,10 @@ func _on_DeathDetector_level_up_area_entered(area):
 					timer.wait_time = 1
 					timer.start()
 					#Reducing the hitbox to the size of the hitbox that small Mario uses
-					get_node("BodyCol").scale.x = 0.863
-					get_node("BodyCol").scale.y = 0.753
+					get_node("BodyCol").scale.x = 0.8
+					get_node("BodyCol").scale.y = 0.8
+					get_node("DeathDetector/LeftCol").position.x = -10
+					get_node("DeathDetector/RightCol").position.x = 10
 					#Enabling the collision masks that small Mario uses,
 					#and disabling the Big Mario collisions
 					get_node("DeathDetector").set_collision_mask(3)
