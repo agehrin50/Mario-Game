@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var map = get_node("mario_tiles")
+var music_pos
 
 var enemy0 = preload("res://Ground Enemy.tscn") #load enemy 0
 var enemy1 = preload("res://Ground Enemy 2.tscn") #load enemy 1
@@ -65,7 +66,14 @@ func _ready():
 #Stop the music when the level ends
 func _on_StageOne_tree_exited():
 	MusicController.stop()
-
+	
+func _process(delta):
+	if Input.is_action_just_pressed("pause_music") and MusicController.is_playing():
+		music_pos = MusicController.get_playback_position()
+		MusicController.stop()
+	if Input.is_action_just_pressed("pause_music") and !MusicController.is_playing():
+		MusicController.seek(music_pos)
+		
 #calculates how wide the level is
 func calculate_x_bounds():
 	var used_cells = map.get_used_cells()

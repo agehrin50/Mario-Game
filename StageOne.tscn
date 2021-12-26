@@ -136,6 +136,7 @@ custom_fonts/font = ExtResource( 2 )
 
 [node name="MenuPopup" type="Popup" parent="player/CanvasLayer"]
 pause_mode = 2
+visible = true
 margin_left = 68.0
 margin_top = -2.0
 margin_right = 581.0
@@ -149,7 +150,7 @@ __meta__ = {
 margin_left = 85.0
 margin_top = 55.0
 margin_right = 235.0
-margin_bottom = 125.0
+margin_bottom = 155.0
 color = Color( 0.313726, 0.313726, 0.313726, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -172,11 +173,32 @@ text = "RESUME GAME"
 align = 1
 valign = 1
 
+[node name="Options" type="ColorRect" parent="player/CanvasLayer/MenuPopup"]
+margin_left = 95.0
+margin_top = 85.0
+margin_right = 225.0
+margin_bottom = 100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="player/CanvasLayer/MenuPopup/Options"]
+margin_right = 130.0
+margin_bottom = 16.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "OPTIONS
+"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Save_Game" type="ColorRect" parent="player/CanvasLayer/MenuPopup"]
 margin_left = 95.0
-margin_top = 83.0
+margin_top = 107.0
 margin_right = 225.0
-margin_bottom = 98.0
+margin_bottom = 122.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -194,9 +216,9 @@ __meta__ = {
 
 [node name="Quit" type="ColorRect" parent="player/CanvasLayer/MenuPopup"]
 margin_left = 95.0
-margin_top = 103.0
+margin_top = 130.0
 margin_right = 225.0
-margin_bottom = 118.0
+margin_bottom = 145.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -209,8 +231,7 @@ text = "QUIT GAME"
 align = 1
 valign = 1
 
-[node name="Popup" type="Popup" parent="player/CanvasLayer/MenuPopup"]
-visible = true
+[node name="Save_Popup" type="Popup" parent="player/CanvasLayer/MenuPopup"]
 margin_left = 60.0
 margin_top = 35.0
 margin_right = 180.0
@@ -219,19 +240,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="player/CanvasLayer/MenuPopup/Popup"]
+[node name="ColorRect" type="ColorRect" parent="player/CanvasLayer/MenuPopup/Save_Popup"]
 margin_left = 25.0
 margin_right = 175.0
 margin_bottom = 15.0
 color = Color( 0.313726, 0.313726, 0.313726, 1 )
 
-[node name="Label" type="Label" parent="player/CanvasLayer/MenuPopup/Popup/ColorRect"]
+[node name="Label" type="Label" parent="player/CanvasLayer/MenuPopup/Save_Popup/ColorRect"]
 margin_right = 151.0
 margin_bottom = 14.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Saving Game..."
 align = 1
 valign = 1
+
+[node name="Options_Popup" type="Popup" parent="player/CanvasLayer/MenuPopup"]
+margin_left = 60.0
+margin_top = 35.0
+margin_right = 180.0
+margin_bottom = 51.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="player/CanvasLayer/MenuPopup/Options_Popup"]
+margin_left = 27.0
+margin_top = 19.0
+margin_right = 177.0
+margin_bottom = 119.0
+color = Color( 0.313726, 0.313726, 0.313726, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="mario_tiles" type="TileMap" parent="."]
 tile_set = ExtResource( 5 )

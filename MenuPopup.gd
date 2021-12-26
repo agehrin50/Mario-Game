@@ -4,6 +4,7 @@ var selected_menu
 
 func change_menu_color(selected_menu):
 	$Resume.color = Color.gray
+	$Options.color = Color.gray
 	$Save_Game.color = Color.gray
 	$Quit.color = Color.gray
 	
@@ -11,8 +12,10 @@ func change_menu_color(selected_menu):
 		0:
 			$Resume.color = Color.greenyellow
 		1:
-			$Save_Game.color = Color.greenyellow
+			$Options.color = Color.greenyellow
 		2:
+			$Save_Game.color = Color.greenyellow
+		3:
 			$Quit.color = Color.greenyellow
 
 
@@ -29,7 +32,7 @@ func _input(event):
 			hide()
 			
 		elif Input.is_action_just_pressed("ui_down"):
-			selected_menu = (selected_menu + 1) % 3;
+			selected_menu = (selected_menu + 1) % 4;
 			change_menu_color(selected_menu)
 		elif Input.is_action_just_pressed("ui_up"):
 			if selected_menu > 0:
@@ -40,15 +43,20 @@ func _input(event):
 		elif Input.is_action_just_pressed("enter"):
 			match selected_menu:
 				0:
+					#Resume game
 					get_tree().paused = false
 					hide()
 				1:
+					#Options
+					hide()
+					$Options_Popup.popup()
+				2:
 					#Save game
-					$Popup.popup()
+					$Save_Popup.popup()
 					save_game()
 					yield(get_tree().create_timer(1.0), "timeout")
-					$Popup.hide()
-				2:
+					$Save_Popup.hide()
+				3:
 					# Quit game
 					get_tree().paused = false
 					get_tree().change_scene("res://TitleScreen.tscn")

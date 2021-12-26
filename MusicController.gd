@@ -2,7 +2,6 @@ extends Node2D
 
 onready var _player = $AudioStreamPlayer
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -20,6 +19,9 @@ func stop():
 #helper function to help store a position within the track
 func get_playback_position():
 	return _player.get_playback_position()
+	
+func is_playing():
+	return _player.playing
 
 #sets track posiiton to the time_pasued	
 func seek(time_paused):
