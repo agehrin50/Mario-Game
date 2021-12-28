@@ -3,11 +3,11 @@ extends Node2D
 onready var map = get_node("mario_tiles")
 var music_pos
 
-var enemy0 = preload("res://Ground Enemy.tscn") #load enemy 0
-var enemy1 = preload("res://Ground Enemy 2.tscn") #load enemy 1
-var enemy2 = preload("res://Flying Enemy.tscn") #load enemy 2
-var enemy3 = preload("res://Ground Enemy 3.tscn") #load enemy 3
-var enemy4 = preload("res://Ground Enemy 4.tscn") #load enemy 4
+var enemy0 = preload("res://Enemies/Goomba/Goomba.tscn") #load enemy 0
+var enemy1 = preload("res://Enemies/Koopa_Troopa/Koopa_Troopa.tscn") #load enemy 1
+var enemy2 = preload("res://Enemies/Koopa_Paratroopa/Koopa_Paratroopa.tscn") #load enemy 2
+var enemy3 = preload("res://Enemies/Beetle/Beetle.tscn") #load enemy 3
+var enemy4 = preload("res://Enemies/Hammer_Bro/Hammer_Bro.tscn") #load enemy 4
 
 func _ready():
 	#Playing the Mario Background Music

@@ -12,7 +12,7 @@ var counter = 300	#Counter for level's time limit
 var loaded = false
 var level_skip = false #level skip easter egg
 var luigi = false #luigi easter egg bool
-var path = "res://level1-1.csv"
+var path = "res://Levels/1-1.csv"
 
 var player = {
 	"coins": 0,

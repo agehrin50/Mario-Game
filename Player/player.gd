@@ -14,8 +14,8 @@ var health_level = 1	#Increases when Mario gets mushroom and decreases according
 var damage = 0  # Invincibility after getting hit
 var timer
 var hits_left  #used for multi-coin block to randomize how many hits you get
-var luigi = preload("res://luigi.tres")
-var luigi_big = preload("res://luigi_big.tres")
+var luigi = preload("res://Player/luigi.tres")
+var luigi_big = preload("res://Player/luigi_big.tres")
 
 #Initializing the timer
 func _init():
