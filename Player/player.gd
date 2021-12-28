@@ -44,13 +44,11 @@ func _ready():
 	#sets initial label values upon start of level
 	$CanvasLayer/HBoxContainer/Time/Current_Time.text = str(get_node("/root/Globals").counter)
 	$CanvasLayer/HBoxContainer/World/Current_World.text = get_node("/root/Globals").player["current_scene"]
-	$CanvasLayer/HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").player["lives"])
-	$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
-	$CanvasLayer/HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").player["coins"])
+	update_scores()
 	randomize() #seeds random number generator
 	hits_left = randi() % 10 +  5 #sets the random variable
 
-		#Disabling hitboxes of big Mario
+	#Disabling hitboxes of big Mario
 	get_node("DeathDetector_level_up").set_collision_mask(0)
 	get_node("DeathDetector_level_up").set_collision_layer(0)
 
@@ -68,26 +66,7 @@ func _physics_process(delta):
 		elif sprint_timer < 90:
 			velocity.x = SPEED + (SPEED*sprint_timer)/90
 			sprint_timer += 1
-		if(health_level == 1):
-			$AnimatedSprite.play("run")
-			$LevelUpAnimatedSprite.play("disabled")
-			$FireAnimatedSprite.play("disabled")
-			$StarAnimatedSprite.play("disabled")
-		elif(health_level == 2):
-			$AnimatedSprite.play("disabled")
-			$LevelUpAnimatedSprite.play("RUN_level_up")
-			$FireAnimatedSprite.play("disabled")
-			$StarAnimatedSprite.play("disabled")
-		elif(health_level == 3):
-			$AnimatedSprite.play("disabled")
-			$LevelUpAnimatedSprite.play("disabled")
-			$FireAnimatedSprite.play("fire_run")
-			$StarAnimatedSprite.play("disabled")
-		elif (health_level == 4):
-			$AnimatedSprite.play("disabled")
-			$LevelUpAnimatedSprite.play("disabled")
-			$FireAnimatedSprite.play("disabled")
-			$StarAnimatedSprite.play("star_run")
+		set_sprite_animation("run")
 		if sign($Position2D.position.x) == -1:
 			$Position2D.position.x *= -1
 		$AnimatedSprite.flip_h = false
@@ -110,50 +89,11 @@ func _physics_process(delta):
 		$StarAnimatedSprite.flip_h = true
 		if sign($Position2D.position.x) == 1:
 			$Position2D.position.x *= -1
-		if(health_level == 1):
-			$AnimatedSprite.play("run")
-			$LevelUpAnimatedSprite.play("disabled")
-			$FireAnimatedSprite.play("disabled")
-			$StarAnimatedSprite.play("disabled")
-		elif(health_level == 2):
-			$AnimatedSprite.play("disabled")
-			$LevelUpAnimatedSprite.play("RUN_level_up")
-			$FireAnimatedSprite.play("disabled")
-			$StarAnimatedSprite.play("disabled")
-		elif(health_level == 3):
-			$AnimatedSprite.play("disabled")
-			$LevelUpAnimatedSprite.play("disabled")
-			$FireAnimatedSprite.play("fire_run")
-			$StarAnimatedSprite.play("disabled")
-		elif (health_level == 4):
-			$AnimatedSprite.play("disabled")
-			$LevelUpAnimatedSprite.play("disabled")
-			$FireAnimatedSprite.play("disabled")
-			$StarAnimatedSprite.play("star_run")
-			
+		set_sprite_animation("run")
 	else:
 		velocity.x = 0
 		if on_ground:
-			if(health_level == 1):
-				$AnimatedSprite.play("idle")
-				$LevelUpAnimatedSprite.play("disabled")
-				$FireAnimatedSprite.play("disabled")
-				$StarAnimatedSprite.play("disabled")
-			elif(health_level == 2):
-				$AnimatedSprite.play("disabled")
-				$LevelUpAnimatedSprite.play("IDLE_level_up")
-				$FireAnimatedSprite.play("disabled")
-				$StarAnimatedSprite.play("disabled")
-			elif(health_level == 3):
-				$AnimatedSprite.play("disabled")
-				$LevelUpAnimatedSprite.play("disabled")
-				$FireAnimatedSprite.play("fire_idle")
-				$StarAnimatedSprite.play("disabled")
-			elif(health_level == 4):
-				$AnimatedSprite.play("disabled")
-				$LevelUpAnimatedSprite.play("disabled")
-				$FireAnimatedSprite.play("disabled")
-				$StarAnimatedSprite.play("star_idle")
+			set_sprite_animation("idle")
 			
 	#jumping 
 	if Input.is_action_pressed("ui_up") and jump_timer < 90:
@@ -169,8 +109,7 @@ func _physics_process(delta):
 		jump_timer = 0
 	#fireball
 	if Input.is_action_just_pressed("ui_down") and health_level == 3:
-		var sfx = "fireball"
-		$AudioStreamPlayer2D.playSound(sfx)
+		$AudioStreamPlayer2D.playSound("fireball")
 		var fireball = FIREBALL.instance()
 		if sign($Position2D.position.x) == 1:
 			fireball.set_fireball_direction(1)
@@ -189,47 +128,9 @@ func _physics_process(delta):
 	else:
 		on_ground = false
 		if velocity.y < 0:
-			if(health_level == 1):
-				$AnimatedSprite.play("jump")
-				$LevelUpAnimatedSprite.play("disabled")
-				$FireAnimatedSprite.play("disabled")
-				$StarAnimatedSprite.play("disabled")
-			elif(health_level == 2):
-				$AnimatedSprite.play("disabled")
-				$LevelUpAnimatedSprite.play("JUMP_level_up")
-				$FireAnimatedSprite.play("disabled")
-				$StarAnimatedSprite.play("disabled")
-			elif(health_level == 3):
-				$AnimatedSprite.play("disabled")
-				$LevelUpAnimatedSprite.play("disabled")
-				$FireAnimatedSprite.play("fire_jump")
-				$StarAnimatedSprite.play("disabled")
-			elif(health_level == 4):
-				$AnimatedSprite.play("disabled")
-				$LevelUpAnimatedSprite.play("disabled")
-				$FireAnimatedSprite.play("disabled")
-				$StarAnimatedSprite.play("star_jump")
+			set_sprite_animation("jump")
 		else:
-			if(health_level == 1):
-				$AnimatedSprite.play("fall")
-				$LevelUpAnimatedSprite.play("disabled")
-				$FireAnimatedSprite.play("disabled")
-				$StarAnimatedSprite.play("disabled")
-			elif(health_level == 2):
-				$AnimatedSprite.play("disabled")
-				$LevelUpAnimatedSprite.play("FALL_level_up")
-				$FireAnimatedSprite.play("disabled")
-				$StarAnimatedSprite.play("disabled")
-			elif(health_level == 3):
-				$AnimatedSprite.play("disabled")
-				$LevelUpAnimatedSprite.play("disabled")
-				$FireAnimatedSprite.play("fire_fall")
-				$StarAnimatedSprite.play("disabled")
-			elif(health_level == 4):
-				$AnimatedSprite.play("disabled")
-				$LevelUpAnimatedSprite.play("disabled")
-				$FireAnimatedSprite.play("disabled")
-				$StarAnimatedSprite.play("star_fall")
+			set_sprite_animation("fall")
 	
 	#If Mario falls off of the stage, he will die.		
 	if position.y > 240:
@@ -248,8 +149,7 @@ func _physics_process(delta):
 		get_node("BodyCol").disabled = true
 		MusicController.stop()
 		$AnimatedSprite.play("death")
-		var sfx = "mario_dies"
-		$AudioStreamPlayer2D.playSound(sfx)
+		$AudioStreamPlayer2D.playSound("mario_dies")
 		yield(get_tree().create_timer(3.0), "timeout")
 		get_tree().paused = false
 		if get_node("/root/Globals").player["lives"] > 0:
@@ -269,7 +169,6 @@ func _physics_process(delta):
 	var item #if there is an item associated with a case, item type is stored here
 	var item_tile_pos #position of the item
 	var item_collision 
-	
 	
 	if on_ground == false:
 		get_node("/root/Globals").tile_pos = Vector2(0,0)
@@ -295,29 +194,23 @@ func _physics_process(delta):
 				if(get_node("/root/Globals").player["coins"] == 100):
 					get_node("/root/Globals").player["coins"] = 0
 					get_node("/root/Globals").player["lives"] += 1
-				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
-				$CanvasLayer/HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").player["coins"])
-				$CanvasLayer/HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").player["lives"])
+				update_scores()	
 				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
 				item = collision.collider.tile_set.find_tile_by_name("Sprite12")
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
 				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
 				collision.collider.set_cellv(item_tile_pos, item)
-				var sfx = "coin"
-				$AudioStreamPlayer2D.playSound(sfx)
 				yield(get_tree().create_timer(0.25), "timeout")
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item)
+				$AudioStreamPlayer2D.playSound("coin")
 				
 			if(tile_name == "Sprite17" or tile_name == "Sprite49"): #fire power-up
 				health_level = 3 
 				get_node("/root/Globals").player["score"] += 1000
 				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
-				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
-				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
-				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
-				var sfx = "powerup"
-				$AudioStreamPlayer2D.playSound(sfx)
+				handle_block_interaction(collision, "blank_tile")
+				$AudioStreamPlayer2D.playSound("powerup")
 								
 			if(tile_name == "Sprite12"): # coin
 				get_node("/root/Globals").player["coins"] += 1
@@ -325,25 +218,17 @@ func _physics_process(delta):
 				if(get_node("/root/Globals").player["coins"]== 100):
 					get_node("/root/Globals").player["coins"] = 0
 					get_node("/root/Globals").player["lives"] += 1
-				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
-				$CanvasLayer/HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").player["coins"])
-				$CanvasLayer/HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").player["lives"])
-				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
-				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
-				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
-				var sfx = "coin"
-				$AudioStreamPlayer2D.playSound(sfx)
+				update_scores()
+				handle_block_interaction(collision, "blank_tile")
+				$AudioStreamPlayer2D.playSound("coin")
 				
 			if(tile_name == "Sprite15" or tile_name == "Sprite48"): #1up
 				get_node("/root/Globals").player["lives"] += 1
 				get_node("/root/Globals").player["score"] += 1000
 				$CanvasLayer/HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").player["lives"])
 				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
-				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
-				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
-				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
-				var sfx = "one_up"
-				$AudioStreamPlayer2D.playSound(sfx)
+				handle_block_interaction(collision, "blank_tile")
+				$AudioStreamPlayer2D.playSound("one_up")
 				
 			if(tile_name == "Sprite14" or tile_name == "Sprite47"): # PowerUp
 				get_node("/root/Globals").player["score"] += 1000
@@ -351,8 +236,6 @@ func _physics_process(delta):
 				if health_level == 1:
 					get_node("BodyCol").scale.x = 1
 					get_node("BodyCol").scale.y = 1
-					#get_node("DeathDetector_level_up/LeftCol").position.x = -13
-					#get_node("DeathDetector_level_up/LeftCol").position.x = -13
 					health_level += 1
 				#Disables small mario hitbox and enables big mario hitbox
 				get_node("DeathDetector").set_collision_mask(0)
@@ -362,13 +245,9 @@ func _physics_process(delta):
 				$AnimatedSprite.play("disabled")
 				$LevelUpAnimatedSprite.play("IDLE_level_up")
 				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
-				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
-				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
-				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
-				var sfx = "powerup"
-				$AudioStreamPlayer2D.playSound(sfx)
+				handle_block_interaction(collision, "blank_tile")
+				$AudioStreamPlayer2D.playSound("powerup")
 				
-			
 			if(tile_name == "Sprite18" or tile_name == "Sprite50"): #star
 				get_node("/root/Globals").player["score"] += 1000
 				#Make Mario invincible for a period of time after getting star
@@ -377,9 +256,7 @@ func _physics_process(delta):
 				health_level = 4
 				timer.start()
 				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
-				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
-				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
-				collision.collider.set_cellv(item_tile_pos, item) #block is set to empty
+				handle_block_interaction(collision, "blank_tile")
 				#star music is longer than sfx, so background music is paused 
 				#current position of background music must be stored so it can be resumed
 				#after star music is done playing
@@ -406,16 +283,12 @@ func _physics_process(delta):
 					$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
 					new_id = collision.collider.tile_set.find_tile_by_name("blank_tile") #block is set to empty
 					collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
-					var sfx = "break_block"
-					$AudioStreamPlayer2D.playSound(sfx)
+					$AudioStreamPlayer2D.playSound("break_block")
 
 			if(tile_name == "Sprite20"): # flag middle
-				var sfx = "flagpole"
-				$AudioStreamPlayer2D.playSound(sfx)
+				$AudioStreamPlayer2D.playSound("flagpole")
 				get_node("/root/Globals").player["score"] += 500
 				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
-				#get_node("BodyCol").disabled = true
-				#yield(get_tree().create_timer(5), "timeout")
 				var x = get_node("/root/Globals").player["furthest_level"]
 				if x == "1-1":
 					get_node("/root/Globals").player["furthest_level"] = "2-1"
@@ -427,8 +300,7 @@ func _physics_process(delta):
 					get_tree().change_scene("TitleScreen.tscn")
 
 			if(tile_name == "Sprite22"): # flag top
-				var sfx = "flagpole"
-				$AudioStreamPlayer2D.playSound(sfx)
+				$AudioStreamPlayer2D.playSound("flagpole")
 				get_node("/root/Globals").player["score"] += 1000
 				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
 				get_node("BodyCol").disabled = true
@@ -443,131 +315,79 @@ func _physics_process(delta):
 					get_tree().change_scene("TitleScreen.tscn")
 
 			if(tile_name == "Sprite23" and Input.is_action_pressed("ui_up")): #? block - PowerUp
-				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
 				if(health_level == 1):
-					item = collision.collider.tile_set.find_tile_by_name("Sprite14")
+					item = "Sprite14"
 				else:
-					item = collision.collider.tile_set.find_tile_by_name("Sprite17")
-				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
-				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
-				collision.collider.set_cellv(item_tile_pos, item)
-				var sfx = "powerup_appeared"
-				$AudioStreamPlayer2D.playSound(sfx)
+					item = "Sprite17"
+				handle_block_replace_interaction(collision, "Sprite4", item)
+				$AudioStreamPlayer2D.playSound("powerup_appeared")
 				
 			if(tile_name == "Sprite24" and Input.is_action_pressed("ui_up")): #? block - star
-				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
-				item = collision.collider.tile_set.find_tile_by_name("Sprite18")
-				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
-				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
-				collision.collider.set_cellv(item_tile_pos, item)
-				var sfx = "powerup_appeared"
-				$AudioStreamPlayer2D.playSound(sfx)
+				handle_block_replace_interaction(collision, "Sprite4", "Sprite18")
+				$AudioStreamPlayer2D.playSound("powerup_appeared")
 				
 			if(tile_name == "Sprite25" and Input.is_action_pressed("ui_up")): #? block - 1up 
-				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
-				item = collision.collider.tile_set.find_tile_by_name("Sprite15")
-				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
-				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
-				collision.collider.set_cellv(item_tile_pos, item)
-				var sfx = "powerup_appeared"
-				$AudioStreamPlayer2D.playSound(sfx)
+				handle_block_replace_interaction(collision, "Sprite4", "Sprite15")
+				$AudioStreamPlayer2D.playSound("powerup_appeared")
 				
 			if(tile_name == "Sprite26" and Input.is_action_pressed("ui_up") and hits_left > 0):  #multi-coin box
-				#yield(get_tree().create_timer(2), "timeout")
-				#new_id = collision.collider.tile_set.find_tile_by_name("Sprite34")
-				#tile_name = "Sprite34"
-				#collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
 				get_node("/root/Globals").player["coins"] += 1
 				get_node("/root/Globals").player["score"] += 200
 				if(get_node("/root/Globals").player["coins"] == 100):
 					get_node("/root/Globals").player["coins"] = 0
 					get_node("/root/Globals").player["lives"] += 1
-				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
-				$CanvasLayer/HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").player["coins"])
-				$CanvasLayer/HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").player["lives"])
+					
+				update_scores()
 				item = collision.collider.tile_set.find_tile_by_name("Sprite12")
 				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
 				collision.collider.set_cellv(item_tile_pos, item)
-				var sfx = "coin"
-				$AudioStreamPlayer2D.playSound(sfx)
+				$AudioStreamPlayer2D.playSound("coin")
 				yield(get_tree().create_timer(0.25), "timeout")
 				item = collision.collider.tile_set.find_tile_by_name("blank_tile")
 				collision.collider.set_cellv(item_tile_pos, item)
 				hits_left -= 1
 				print(hits_left)
 				
-				
 			if(tile_name == "Sprite26" and Input.is_action_pressed("ui_up") and hits_left <= 0):  #multi-coin box turning box into dead box
 				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
 				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
 				
 			if(tile_name == "Sprite27" and Input.is_action_pressed("ui_up")):  #brick - power-up
-				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
 				if(health_level == 1):
-					item = collision.collider.tile_set.find_tile_by_name("Sprite14")
+					item = "Sprite14"
 				else:
-					item = collision.collider.tile_set.find_tile_by_name("Sprite17")
-				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
-				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
-				collision.collider.set_cellv(item_tile_pos, item)
-				var sfx = "powerup_appeared"
-				$AudioStreamPlayer2D.playSound(sfx)
+					item = "Sprite17"
+				handle_block_replace_interaction(collision, "Sprite4", item)
+				$AudioStreamPlayer2D.playSound("powerup_appeared")
 				
 			if(tile_name == "Sprite28" and Input.is_action_pressed("ui_up")):  #brick - 1-up
-				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
-				item = collision.collider.tile_set.find_tile_by_name("Sprite15")
-				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
-				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
-				collision.collider.set_cellv(item_tile_pos, item)
-				var sfx = "powerup_appeared"
-				$AudioStreamPlayer2D.playSound(sfx)
+				handle_block_replace_interaction(collision, "Sprite4", "Sprite15")
+				$AudioStreamPlayer2D.playSound("powerup_appeared")
 				
 			if(tile_name == "Sprite29" and Input.is_action_pressed("ui_up")):  # brick -star
-				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
-				item = collision.collider.tile_set.find_tile_by_name("Sprite18")
-				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
-				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
-				collision.collider.set_cellv(item_tile_pos, item)
-				var sfx = "powerup_appeared"
-				$AudioStreamPlayer2D.playSound(sfx)
-				
+				handle_block_replace_interaction(collision, "Sprite4", "Sprite18")
+				$AudioStreamPlayer2D.playSound("powerup_appeared")
 				
 			if(tile_name == "Sprite30" and Input.is_action_pressed("ui_up")): #hidden power up
-				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
 				if(health_level == 1):
-					item = collision.collider.tile_set.find_tile_by_name("Sprite14")
+					item = "Sprite14"
 				else:
-					item = collision.collider.tile_set.find_tile_by_name("Sprite17")
-				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
-				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
-				collision.collider.set_cellv(item_tile_pos, item)
-				var sfx = "powerup_appeared"
-				$AudioStreamPlayer2D.playSound(sfx)
-				
+					item = "Sprite17"
+				handle_block_replace_interaction(collision, "Sprite4", item)
+				$AudioStreamPlayer2D.playSound("powerup_appeared")
 				
 			if(tile_name == "Sprite31" and Input.is_action_pressed("ui_up")):  #hidden 1-up
-				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
-				item = collision.collider.tile_set.find_tile_by_name("Sprite15")
-				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
-				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
-				collision.collider.set_cellv(item_tile_pos, item)
-				var sfx = "powerup_appeared"
-				$AudioStreamPlayer2D.playSound(sfx)
+				handle_block_replace_interaction(collision, "Sprite4", "Sprite15")
+				$AudioStreamPlayer2D.playSound("powerup_appeared")
 				
 			if(tile_name == "Sprite32" and Input.is_action_pressed("ui_up")):  #hidden star
-				new_id = collision.collider.tile_set.find_tile_by_name("Sprite4")
-				item = collision.collider.tile_set.find_tile_by_name("Sprite18")
-				item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
-				collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
-				collision.collider.set_cellv(item_tile_pos, item)
-				var sfx = "powerup_appeared"
-				$AudioStreamPlayer2D.playSound(sfx)
+				handle_block_replace_interaction(collision, "Sprite4", "Sprite18")
+				$AudioStreamPlayer2D.playSound("powerup_appeared")
 				
 #Adding a jump after hitting the top of the enemy
 func _on_StepDetector_area_entered(area):
 	if "StompDetector" in area.name:
-		var sfx = "stomp"
-		$AudioStreamPlayer2D.playSound(sfx)
+		$AudioStreamPlayer2D.playSound("stomp")
 		velocity.y = JUMP_POWER
 
 #Determening damage of small Mario when hit by enemy
@@ -586,8 +406,7 @@ func _on_DeathDetector_area_entered(area):
 					get_node("BodyCol").disabled = true
 					MusicController.stop()
 					$AnimatedSprite.play("death")
-					var sfx = "mario_dies"
-					$AudioStreamPlayer2D.playSound(sfx)
+					$AudioStreamPlayer2D.playSound( "mario_dies")
 					yield(get_tree().create_timer(3.0), "timeout")
 					get_tree().paused = false
 					if get_node("/root/Globals").player["lives"] > 0:
@@ -601,8 +420,7 @@ func _on_DeathDetector_level_up_area_entered(area):
 	if get_node("/root/Globals").invincible == 0:
 			if health_level == 2:
 				if "KillDetector" in area.name:
-					var sfx = "pipe"
-					$AudioStreamPlayer2D.playSound(sfx)
+					$AudioStreamPlayer2D.playSound("pipe")
 					get_node("/root/Globals").damage = 1
 					health_level -= 1
 					timer.wait_time = 1
@@ -621,6 +439,112 @@ func _on_DeathDetector_level_up_area_entered(area):
 					if area.global_position.y > get_node("DeathDetector").global_position.y:
 						return
 
+func update_scores():
+	$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
+	$CanvasLayer/HBoxContainer/Coins/Current_Coins.text = str(get_node("/root/Globals").player["coins"])
+	$CanvasLayer/HBoxContainer/Lives/Current_Lives.text = str(get_node("/root/Globals").player["lives"])
+	
+func set_sprite_animation(state):
+	if state == "idle":
+		if(health_level == 1):
+			$AnimatedSprite.play("idle")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("disabled")
+		elif(health_level == 2):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("IDLE_level_up")
+			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("disabled")
+		elif(health_level == 3):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("fire_idle")
+			$StarAnimatedSprite.play("disabled")
+		elif(health_level == 4):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("star_idle")
+			
+	elif state == "run":
+		if(health_level == 1):
+			$AnimatedSprite.play("run")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("disabled")
+		elif(health_level == 2):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("RUN_level_up")
+			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("disabled")
+		elif(health_level == 3):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("fire_run")
+			$StarAnimatedSprite.play("disabled")
+		elif (health_level == 4):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("star_run")
+			
+	elif state == "jump":
+		if(health_level == 1):
+			$AnimatedSprite.play("jump")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("disabled")
+		elif(health_level == 2):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("JUMP_level_up")
+			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("disabled")
+		elif(health_level == 3):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("fire_jump")
+			$StarAnimatedSprite.play("disabled")
+		elif(health_level == 4):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("star_jump")
+			
+	elif state == "fall":
+		if(health_level == 1):
+			$AnimatedSprite.play("fall")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("disabled")
+		elif(health_level == 2):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("FALL_level_up")
+			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("disabled")
+		elif(health_level == 3):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("fire_fall")
+			$StarAnimatedSprite.play("disabled")
+		elif(health_level == 4):
+			$AnimatedSprite.play("disabled")
+			$LevelUpAnimatedSprite.play("disabled")
+			$FireAnimatedSprite.play("disabled")
+			$StarAnimatedSprite.play("star_fall")
+
+func handle_block_interaction(collision, new_block):
+	var new_id = collision.collider.tile_set.find_tile_by_name(new_block)
+	var item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y)
+	collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
+
+func handle_block_replace_interaction(collision, new_block, new_item):
+	var new_id = collision.collider.tile_set.find_tile_by_name(new_block)
+	var item = collision.collider.tile_set.find_tile_by_name(new_item)
+	var item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
+	collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
+	collision.collider.set_cellv(item_tile_pos, item)
+
 #logic for the level countdown timer
 func _on_counter_timeout():
 	get_node("/root/Globals").counter -=1
@@ -634,8 +558,7 @@ func _on_counter_timeout():
 		get_node("BodyCol").disabled = true
 		MusicController.stop()
 		$AnimatedSprite.play("death")
-		var sfx = "mario_dies"
-		$AudioStreamPlayer2D.playSound(sfx)
+		$AudioStreamPlayer2D.playSound("mario_dies")
 		yield(get_tree().create_timer(3.0), "timeout")
 		get_tree().paused = false
 		if get_node("/root/Globals").player["lives"] > 0:
