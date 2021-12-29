@@ -10,6 +10,7 @@ var velocity = Vector2()
 var direction = 1		#checking the movement direction
 var attack = 0		#tracking the time between hammer throws
 var falling = 0		#checking if falling
+var stunned = 1
 
 func _ready():
 	#set_position(Vector2(400,150))
@@ -79,6 +80,7 @@ func _on_StompDetector_body_entered(body):
 	if body.global_position.y > get_node("StompDetector").global_position.y:
 		return
 		
+	stunned = 0	
 	get_tree().paused = true
 	get_node("BodyCol").disabled = true
 	$AnimatedSprite.play("stunned")
