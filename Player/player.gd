@@ -16,6 +16,7 @@ var timer
 var hits_left  #used for multi-coin block to randomize how many hits you get
 var luigi = preload("res://Player/luigi.tres")
 var luigi_big = preload("res://Player/luigi_big.tres")
+var stunableCharacters = ["Koopa_Troopa", "Beetle", "Koopa_Paratroopa", "Hammer_Bro"]
 
 #Initializing the timer
 func _init():
@@ -401,12 +402,20 @@ func _on_DeathDetector_area_entered(area):
 				else:
 					if area.global_position.y > get_node("DeathDetector").global_position.y:
 						return
+					
+					#damage should not be taken if enemy is stunned
+					var overlapping = get_node("DeathDetector").get_overlapping_areas()
+					var overlappingParent = overlapping[0].get_parent()
+					if (overlappingParent.get_name() in stunableCharacters):
+						if overlappingParent.stunned == 0:
+							return
+							
 					get_tree().paused = true
 					health_level -=1
 					get_node("BodyCol").disabled = true
 					MusicController.stop()
 					$AnimatedSprite.play("death")
-					$AudioStreamPlayer2D.playSound( "mario_dies")
+					$AudioStreamPlayer2D.playSound("mario_dies")
 					yield(get_tree().create_timer(3.0), "timeout")
 					get_tree().paused = false
 					if get_node("/root/Globals").player["lives"] > 0:
@@ -420,6 +429,15 @@ func _on_DeathDetector_level_up_area_entered(area):
 	if get_node("/root/Globals").invincible == 0:
 			if health_level == 2:
 				if "KillDetector" in area.name:
+					
+					#damage should not be taken if enemy is stunned
+					var overlapping = get_node("DeathDetector_level_up").get_overlapping_areas()
+					var overlappingParent = overlapping[0].get_parent()
+					if (overlappingParent.get_name() in stunableCharacters):
+						if overlappingParent.stunned == 0:
+							return
+							
+					#TODO: add damage taken sound effect 
 					$AudioStreamPlayer2D.playSound("pipe")
 					get_node("/root/Globals").damage = 1
 					health_level -= 1
@@ -544,7 +562,7 @@ func handle_block_replace_interaction(collision, new_block, new_item):
 	var item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
 	collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
 	collision.collider.set_cellv(item_tile_pos, item)
-
+	
 #logic for the level countdown timer
 func _on_counter_timeout():
 	get_node("/root/Globals").counter -=1

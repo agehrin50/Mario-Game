@@ -18,7 +18,7 @@ extents = Vector2( 1.21302, 5.50744 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 1.1554, 1.36863 )
 
-[node name="Ground Enemy 3" type="KinematicBody2D"]
+[node name="Beetle" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
 [node name="Position2D" type="Position2D" parent="."]

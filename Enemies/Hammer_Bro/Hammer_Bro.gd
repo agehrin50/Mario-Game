@@ -74,12 +74,16 @@ func _physics_process(delta):
 	if get_node("/root/Globals").enemy4_tile_pos == get_node("/root/Globals").tile_pos and get_node("/root/Globals").damage == 0:
 		queue_free()
 
-#Enemy dies when gets hit from the top by Mario.
+#Enemy gets stunned when gets hit from the top by Mario.
 func _on_StompDetector_body_entered(body):
 	if body.global_position.y > get_node("StompDetector").global_position.y:
 		return
+		
+	get_tree().paused = true
 	get_node("BodyCol").disabled = true
-	queue_free()
+	$AnimatedSprite.play("stunned")
+	yield(get_tree().create_timer(0.25), "timeout")
+	get_tree().paused = false
 
 #Collisions on the side of the enemy	
 func _on_KillDetector_area_entered(area):

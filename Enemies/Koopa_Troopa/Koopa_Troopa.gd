@@ -60,7 +60,7 @@ func _physics_process(delta):
 	var item_collision
 
 	#Determening on what tile the enemy is. This is needed for Mario to be able
-	#to kill the enemy when he hits the same block from hte bottom.
+	#to kill the enemy when he hits the same block from the bottom.
 	for i in range(get_slide_count()):
 		collision = get_slide_collision(i)
 					
@@ -74,7 +74,7 @@ func _physics_process(delta):
 	if get_node("/root/Globals").enemy2_tile_pos == get_node("/root/Globals").tile_pos and get_node("/root/Globals").damage == 0:
 		queue_free()
 
-#
+#Collisions on the top of the enemy
 func _on_StompDetector_body_entered(body):
 	if stunned == 0:
 		if body.global_position.y > get_node("StompDetector").global_position.y:

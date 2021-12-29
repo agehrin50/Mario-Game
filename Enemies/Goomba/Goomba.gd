@@ -61,7 +61,12 @@ func _physics_process(delta):
 func _on_StompDetector_body_entered(body):
 	if body.global_position.y > get_node("StompDetector").global_position.y:
 		return
+	
+	get_tree().paused = true
 	get_node("BodyCol").disabled = true
+	$AnimatedSprite.play("death")
+	yield(get_tree().create_timer(0.25), "timeout")
+	get_tree().paused = false
 	queue_free()
 
 #Collisions on the side of the enemy

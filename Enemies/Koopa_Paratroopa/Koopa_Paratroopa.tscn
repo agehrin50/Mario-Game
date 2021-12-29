@@ -3,7 +3,6 @@
 [ext_resource path="res://Depricated/Flying Enemy 2.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/Koopa_Paratroopa/Koopa_Paratroopa.tres" type="SpriteFrames" id=2]
 
-
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 9.1115
 height = 11.6118
@@ -24,7 +23,7 @@ extents = Vector2( 11.7618, 1.35172 )
 radius = 9.94659
 height = 17.9259
 
-[node name="Flying Enemy" type="KinematicBody2D"]
+[node name="Koopa_Paratroopa" type="KinematicBody2D"]
 position = Vector2( 16.6083, 8.63631 )
 script = ExtResource( 1 )
 
