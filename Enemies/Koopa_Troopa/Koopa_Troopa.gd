@@ -76,6 +76,10 @@ func _physics_process(delta):
 
 #Collisions on the top of the enemy
 func _on_StompDetector_body_entered(body):
+	#ensure enemies don't kill or stun each other	
+	if body.get_name() != "player":
+		return
+	
 	if stunned == 0:
 		if body.global_position.y > get_node("StompDetector").global_position.y:
 			return

@@ -437,7 +437,6 @@ func _on_DeathDetector_level_up_area_entered(area):
 						if overlappingParent.stunned == 0:
 							return
 							
-					#TODO: add damage taken sound effect 
 					$AudioStreamPlayer2D.playSound("pipe")
 					get_node("/root/Globals").damage = 1
 					health_level -= 1

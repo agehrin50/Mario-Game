@@ -35,6 +35,10 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, FLOOR)
 
 func _on_StompDetector_body_entered(body):
+	#ensure enemies don't kill or stun each other	
+	if body.get_name() != "player":
+		return
+	
 	if on_ground == true:
 			if body.global_position.y > get_node("StompDetector").global_position.y:
 				return

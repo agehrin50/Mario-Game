@@ -62,6 +62,10 @@ func _on_StompDetector_body_entered(body):
 	if body.global_position.y > get_node("StompDetector").global_position.y:
 		return
 	
+	#ensure enemies don't kill or stun each other	
+	if body.get_name() != "player":
+		return
+	
 	get_tree().paused = true
 	get_node("BodyCol").disabled = true
 	$AnimatedSprite.play("death")
