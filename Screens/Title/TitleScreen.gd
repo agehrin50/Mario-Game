@@ -13,15 +13,9 @@ func _physics_process(delta):
 	if $Quit.is_hovered() == true:
 		$Quit.grab_focus()
 
-#When Play pressed, the scene will change and game will start
+#When Play pressed, stage changing is delegated to the level screen
 func _on_Play_pressed():
-	if get_node("/root/Globals").player["current_scene"] == "1-1":
-		get_node("/root/Globals").path = "res://Levels/1-1.csv"
-	if get_node("/root/Globals").player["current_scene"] == "2-1":
-		get_node("/root/Globals").path = "res://Levels/2-1.csv"
-	if get_node("/root/Globals").player["current_scene"] == "1-2":
-		get_node("/root/Globals").path = "res://Levels/1-2.csv"
-	get_tree().change_scene("res://World.tscn")
+	get_tree().change_scene("res://Screens/Level/LevelScreen.tscn")
 
 #Exiting the game if quit pressed
 func _on_Quit_pressed():

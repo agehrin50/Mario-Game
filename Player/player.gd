@@ -133,16 +133,21 @@ func _physics_process(delta):
 		else:
 			set_sprite_animation("fall")
 	
-	#If Mario falls off of the stage, he will die.		
+	#If Mario falls off of the stage, he will die.	
 	if position.y > 240:
 		get_node("BodyCol").disabled = true
-		queue_free()
+		get_tree().paused = true
+		MusicController.stop()
+		$AnimatedSprite.play("death")
+		$AudioStreamPlayer2D.playSound("mario_dies")
+		yield(get_tree().create_timer(3.0), "timeout")
+		get_tree().paused = false
 		if get_node("/root/Globals").player["lives"] > 0:
 			get_node("/root/Globals").player["lives"] -=1
-			get_tree().reload_current_scene()
+			get_tree().change_scene("res://Screens/Level/LevelScreen.tscn")
 		else:
 			get_node("/root/Globals").player["lives"] = 3
-			get_tree().change_scene("GameOver.tscn")
+			get_tree().change_scene("res://Screens/Game_Over/GameOver.tscn")
 	
 	if get_node("/root/Globals").counter <= 0:
 		get_tree().paused = true
@@ -154,10 +159,10 @@ func _physics_process(delta):
 		yield(get_tree().create_timer(3.0), "timeout")
 		get_tree().paused = false
 		if get_node("/root/Globals").player["lives"] > 0:
-			get_tree().reload_current_scene()
 			get_node("/root/Globals").player["lives"] -=1 
+			get_tree().change_scene("res://Screens/Level/LevelScreen.tscn")
 		else:
-			get_tree().change_scene("res://GameOver.tscn")
+			get_tree().change_scene("res://Screens/Game_Over/GameOver.tscn")
 			
 		
 	velocity = move_and_slide(velocity, FLOOR)
@@ -294,11 +299,11 @@ func _physics_process(delta):
 				if x == "1-1":
 					get_node("/root/Globals").player["furthest_level"] = "2-1"
 					get_node("/root/Globals").player["current_scene"] = "2-1"
-					get_tree().change_scene("TitleScreen.tscn")
+					get_tree().change_scene("Screens/Level/LevelScreen.tscn")
 				elif x == "2-1":
 					get_node("/root/Globals").player["furthest_level"] = "2-1"
 					get_node("/root/Globals").player["current_scene"] = "2-1"
-					get_tree().change_scene("TitleScreen.tscn")
+					get_tree().change_scene("Screens/Level/LevelScreen.tscn")
 
 			if(tile_name == "Sprite22"): # flag top
 				$AudioStreamPlayer2D.playSound("flagpole")
@@ -309,11 +314,11 @@ func _physics_process(delta):
 				if x == "1-1":
 					get_node("/root/Globals").player["furthest_level"] = "2-1"
 					get_node("/root/Globals").player["current_scene"] = "2-1"
-					get_tree().change_scene("TitleScreen.tscn")
+					get_tree().change_scene("Screens/Level/LevelScreen.tscn")
 				elif x == "2-1":
 					get_node("/root/Globals").player["furthest_level"] = "2-1"
 					get_node("/root/Globals").player["current_scene"] = "2-1"
-					get_tree().change_scene("TitleScreen.tscn")
+					get_tree().change_scene("Screens/Level/LevelScreen.tscn")
 
 			if(tile_name == "Sprite23" and Input.is_action_pressed("ui_up")): #? block - PowerUp
 				if(health_level == 1):
@@ -419,10 +424,10 @@ func _on_DeathDetector_area_entered(area):
 					yield(get_tree().create_timer(3.0), "timeout")
 					get_tree().paused = false
 					if get_node("/root/Globals").player["lives"] > 0:
-						get_tree().reload_current_scene()
-						get_node("/root/Globals").player["lives"] -=1 
+						get_node("/root/Globals").player["lives"] -=1
+						get_tree().change_scene("res://Screens/Level/LevelScreen.tscn")
 					else:
-						get_tree().change_scene("res://GameOver.tscn")
+						get_tree().change_scene("res://Screens/Game_Over/GameOver.tscn")
 					
 #Determening what happens to a big Mario when gets hit by an enemy.
 func _on_DeathDetector_level_up_area_entered(area):
@@ -579,7 +584,7 @@ func _on_counter_timeout():
 		yield(get_tree().create_timer(3.0), "timeout")
 		get_tree().paused = false
 		if get_node("/root/Globals").player["lives"] > 0:
-			get_tree().reload_current_scene()
 			get_node("/root/Globals").player["lives"] -= 1 
+			get_tree().change_scene("res://Screens/Level/LevelScreen.tscn")
 		else:
-			get_tree().change_scene("res://GameOver.tscn")
+			get_tree().change_scene("res://Screens/Game_Over/GameOver.tscn")
