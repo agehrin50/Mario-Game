@@ -21,6 +21,10 @@ func _ready():
 	if(get_node("/root/Globals").player["current_scene"] == "1-2"):
 		get_node("ParallaxBackground/ParallaxLayer/Sprite").texture = load("res://Mario-assets/Other/black_background.png")
 		get_node("ParallaxBackground2/ParallaxLayer/Sprite").texture = load("res://Mario-assets/Other/black_background.png")
+		
+	if(get_node("/root/Globals").player["current_scene"] == "1-3"):
+		get_node("ParallaxBackground/ParallaxLayer/Sprite").texture = load("res://Mario-assets/Other/Overworld_sky.png")
+		get_node("ParallaxBackground2/ParallaxLayer/Sprite").texture = load("res://Mario-assets/Other/Overworld_sky.png")
 	
 	var ts = map.get_tileset()
 	var uc = map.get_used_cells()

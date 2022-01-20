@@ -26,7 +26,7 @@ func setMap():
 	var numCols = mainData[0].size()
 	
 	#iterates over the 2-D array and checks for what type of tile is encountered based on encoding from csv file
-	#after check is performed, generates a block within stageOne at tile_pos
+	#after check is performed, generates a block within world at tile_pos
 	for i in range(numRows-1, 0, -1):
 		for j in numCols:
 			if(mainData[i][j] == 'a'): #Stone - color 1
@@ -214,7 +214,8 @@ func setMap():
 				print("Platform U/D")
 				
 			if(mainData[i][j] == 'N'):
-				print("Platform R/L")
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite57"))
 				
 			if(mainData[i][j] == 'O'):
 				print("Fire Floor")
@@ -250,4 +251,17 @@ func setMap():
 				
 			if(mainData[i][j] == 'Z'):
 				print("Rotating Fire Box - clockwise")
+				
+			if(mainData[i][j] == '!'): #tree
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite53"))
+			if(mainData[i][j] == '-'): #treetop middle
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite54"))
+			if(mainData[i][j] == '<'): #treetop left
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite55"))
+			if(mainData[i][j] == '>'): #treetop right
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite56"))
 	return mainData
