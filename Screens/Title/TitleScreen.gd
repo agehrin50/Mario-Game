@@ -40,88 +40,23 @@ func _on_11_pressed():
 	yield(get_tree().create_timer(1.0), "timeout")
 	$Popup.hide()
 
-
 func _on_Map_pressed():
 	$PopupMenu2.popup()
-	if get_node("/root/Globals").level_skip:
-		get_node("/root/Globals").player["furthest_level"] = "4-2"
 
 func _on_12_pressed():
-	var x = get_node("/root/Globals").player["furthest_level"]
-	if x == "1-2" or x == "4-2":
-		get_node("/root/Globals").player["current_scene"] = "1-2"
-		$Popup.popup()
-		$Popup/ColorRect/Label.text = "Loading level: 1-2..."
-		$PopupMenu2.hide()
-		yield(get_tree().create_timer(1.0), "timeout")
-		$Popup.hide()
-	else:
-		$Popup.popup()
-		$Popup/ColorRect/Label.text = "Level not available"
-		yield(get_tree().create_timer(1.0), "timeout")
-		$Popup.hide()
+	Pick_Level("1-2")
 		
 func _on_13_pressed():
-	var x = get_node("/root/Globals").player["furthest_level"]
-	if x == "1-3" or x == "4-2":
-		get_node("/root/Globals").player["current_scene"] = "1-3"
-		$Popup.popup()
-		$Popup/ColorRect/Label.text = "Loading level: 1-3..."
-		$PopupMenu2.hide()
-		yield(get_tree().create_timer(1.0), "timeout")
-		$Popup.hide()
-	else:
-		$Popup.popup()
-		$Popup/ColorRect/Label.text = "Level not available"
-		yield(get_tree().create_timer(1.0), "timeout")
-		$Popup.hide()
+	Pick_Level("1-3")
 		
 func _on_14_pressed():
-	var x = get_node("/root/Globals").player["furthest_level"]
-	if x == "1-4" or x == "4-2":
-		get_node("/root/Globals").player["current_scene"] = "1-4"
-		$Popup.popup()
-		$Popup/ColorRect/Label.text = "Loading level: 1-4..."
-		$PopupMenu2.hide()
-		yield(get_tree().create_timer(1.0), "timeout")
-		$Popup.hide()
-	else:
-		$Popup.popup()
-		$Popup/ColorRect/Label.text = "Level not available"
-		yield(get_tree().create_timer(1.0), "timeout")
-		$Popup.hide()
+	Pick_Level("1-4")
 
 func _on_21_pressed():
-	var x = get_node("/root/Globals").player["furthest_level"]
-	if x == "2-1" or x == "4-2":
-		get_node("/root/Globals").player["current_scene"] = "2-1"
-		$Popup.popup()
-		$Popup/ColorRect/Label.text = "Loading level: 2-1..."
-		$PopupMenu2.hide()
-		yield(get_tree().create_timer(1.0), "timeout")
-		$Popup.hide()
-	else:
-		$Popup.popup()
-		$Popup/ColorRect/Label.text = "Level not available"
-		yield(get_tree().create_timer(1.0), "timeout")
-		$Popup.hide()
-
+	Pick_Level("2-1")
 
 func _on_42_pressed():
-	var x = get_node("/root/Globals").player["furthest_level"]
-	if x == "4-2":
-		get_node("/root/Globals").player["current_scene"] = "4-2"
-		$Popup.popup()
-		$Popup/ColorRect/Label.text = "Loading level: 4-2..."
-		$PopupMenu2.hide()
-		yield(get_tree().create_timer(1.0), "timeout")
-		$Popup.hide()
-	else:
-		$Popup.popup()
-		$Popup/ColorRect/Label.text = "Level not available"
-		yield(get_tree().create_timer(1.0), "timeout")
-		$Popup.hide()
-
+	Pick_Level("4-2")
 
 func _on_block_secret_pressed():
 	$secret_menu.popup()
@@ -149,3 +84,19 @@ func _on_LineEdit_text_entered(new_text):
 		yield(get_tree().create_timer(1.0), "timeout")
 		$Popup.hide()
 		$secret_menu.hide()
+		
+func Pick_Level(level):
+	var x = get_node("/root/Globals").player["furthest_level"]
+	var can_level_skip = get_node("/root/Globals").level_skip
+	if x == level or can_level_skip:
+		get_node("/root/Globals").player["current_scene"] = level
+		$Popup.popup()
+		$Popup/ColorRect/Label.text = "Loading level: " + level + "..."
+		$PopupMenu2.hide()
+		yield(get_tree().create_timer(1.0), "timeout")
+		$Popup.hide()
+	else:
+		$Popup.popup()
+		$Popup/ColorRect/Label.text = "Level not available"
+		yield(get_tree().create_timer(1.0), "timeout")
+		$Popup.hide()

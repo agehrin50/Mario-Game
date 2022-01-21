@@ -8,6 +8,12 @@ var enemy1 = preload("res://Enemies/Koopa_Troopa/Koopa_Troopa.tscn") #load enemy
 var enemy2 = preload("res://Enemies/Koopa_Paratroopa/Koopa_Paratroopa.tscn") #load enemy 2
 var enemy3 = preload("res://Enemies/Beetle/Beetle.tscn") #load enemy 3
 var enemy4 = preload("res://Enemies/Hammer_Bro/Hammer_Bro.tscn") #load enemy 4
+var mountain_background_levels = ["1-1", "4-1",]
+var black_background_levels = ["1-2", "1-4", "2-4", "3-1", "3-2", "3-3", "3-4", "4-2", "4-4",
+"5-4", "6-1", "6-2", "6-3", "6-4", "7-4", "8-4"]
+var sky_background_levels = ["1-3", "2-1", "2-3", "4-3", "5-1", "5-2", "5-3", "7-1",
+ "7-3", "8-1", "8-2", "8-3"]
+var water_background_levels = ["2-2", "7-2"]
 
 func _ready():
 	#Playing the Mario Background Music
@@ -18,11 +24,11 @@ func _ready():
 	#the bound is multiplied by 16 because of block width in pixels
 	
 	#changes background based on level
-	if(get_node("/root/Globals").player["current_scene"] == "1-2"):
+	if(get_node("/root/Globals").player["current_scene"] in black_background_levels):
 		get_node("ParallaxBackground/ParallaxLayer/Sprite").texture = load("res://Mario-assets/Other/black_background.png")
 		get_node("ParallaxBackground2/ParallaxLayer/Sprite").texture = load("res://Mario-assets/Other/black_background.png")
 		
-	if(get_node("/root/Globals").player["current_scene"] == "1-3"):
+	if(get_node("/root/Globals").player["current_scene"] in sky_background_levels):
 		get_node("ParallaxBackground/ParallaxLayer/Sprite").texture = load("res://Mario-assets/Other/Overworld_sky.png")
 		get_node("ParallaxBackground2/ParallaxLayer/Sprite").texture = load("res://Mario-assets/Other/Overworld_sky.png")
 	
