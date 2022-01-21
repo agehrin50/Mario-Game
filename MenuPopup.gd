@@ -59,7 +59,7 @@ func _input(event):
 				3:
 					# Quit game
 					get_tree().paused = false
-					get_tree().change_scene("res://TitleScreen.tscn")
+					get_tree().change_scene("res://Screens/Title/TitleScreen.tscn")
 	
 const FILE_NAME = "res://Save/savedgame.json"
 func save():

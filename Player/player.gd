@@ -135,35 +135,11 @@ func _physics_process(delta):
 	
 	#If Mario falls off of the stage, he will die.	
 	if position.y > 240:
-		get_node("BodyCol").disabled = true
-		get_tree().paused = true
-		MusicController.stop()
-		$AnimatedSprite.play("death")
-		$AudioStreamPlayer2D.playSound("mario_dies")
-		yield(get_tree().create_timer(3.0), "timeout")
-		get_tree().paused = false
-		if get_node("/root/Globals").player["lives"] > 0:
-			get_node("/root/Globals").player["lives"] -=1
-			get_tree().change_scene("res://Screens/Level/LevelScreen.tscn")
-		else:
-			get_node("/root/Globals").player["lives"] = 3
-			get_tree().change_scene("res://Screens/Game_Over/GameOver.tscn")
+		handle_death()
 	
+	#time runs out
 	if get_node("/root/Globals").counter <= 0:
-		get_tree().paused = true
-		health_level -=1
-		get_node("BodyCol").disabled = true
-		MusicController.stop()
-		$AnimatedSprite.play("death")
-		$AudioStreamPlayer2D.playSound("mario_dies")
-		yield(get_tree().create_timer(3.0), "timeout")
-		get_tree().paused = false
-		if get_node("/root/Globals").player["lives"] > 0:
-			get_node("/root/Globals").player["lives"] -=1 
-			get_tree().change_scene("res://Screens/Level/LevelScreen.tscn")
-		else:
-			get_tree().change_scene("res://Screens/Game_Over/GameOver.tscn")
-			
+		handle_death()
 		
 	velocity = move_and_slide(velocity, FLOOR)
 	
@@ -292,33 +268,12 @@ func _physics_process(delta):
 					$AudioStreamPlayer2D.playSound("break_block")
 
 			if(tile_name == "Sprite20"): # flag middle
-				$AudioStreamPlayer2D.playSound("flagpole")
 				get_node("/root/Globals").player["score"] += 500
-				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
-				var x = get_node("/root/Globals").player["furthest_level"]
-				if x == "1-1":
-					get_node("/root/Globals").player["furthest_level"] = "2-1"
-					get_node("/root/Globals").player["current_scene"] = "2-1"
-					get_tree().change_scene("Screens/Level/LevelScreen.tscn")
-				elif x == "2-1":
-					get_node("/root/Globals").player["furthest_level"] = "2-1"
-					get_node("/root/Globals").player["current_scene"] = "2-1"
-					get_tree().change_scene("Screens/Level/LevelScreen.tscn")
+				handle_end_of_level()
 
 			if(tile_name == "Sprite22"): # flag top
-				$AudioStreamPlayer2D.playSound("flagpole")
 				get_node("/root/Globals").player["score"] += 1000
-				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
-				get_node("BodyCol").disabled = true
-				var x = get_node("/root/Globals").player["furthest_level"]
-				if x == "1-1":
-					get_node("/root/Globals").player["furthest_level"] = "2-1"
-					get_node("/root/Globals").player["current_scene"] = "2-1"
-					get_tree().change_scene("Screens/Level/LevelScreen.tscn")
-				elif x == "2-1":
-					get_node("/root/Globals").player["furthest_level"] = "2-1"
-					get_node("/root/Globals").player["current_scene"] = "2-1"
-					get_tree().change_scene("Screens/Level/LevelScreen.tscn")
+				handle_end_of_level()
 
 			if(tile_name == "Sprite23" and Input.is_action_pressed("ui_up")): #? block - PowerUp
 				if(health_level == 1):
@@ -335,6 +290,9 @@ func _physics_process(delta):
 			if(tile_name == "Sprite25" and Input.is_action_pressed("ui_up")): #? block - 1up 
 				handle_block_replace_interaction(collision, "Sprite4", "Sprite15")
 				$AudioStreamPlayer2D.playSound("powerup_appeared")
+				
+			if(tile_name == "Sprite67"): #fire 
+				handle_death()
 				
 			if(tile_name == "Sprite26" and Input.is_action_pressed("ui_up") and hits_left > 0):  #multi-coin box
 				get_node("/root/Globals").player["coins"] += 1
@@ -414,20 +372,7 @@ func _on_DeathDetector_area_entered(area):
 					if (overlappingParent.get_name() in stunableCharacters):
 						if overlappingParent.stunned == 0:
 							return
-							
-					get_tree().paused = true
-					health_level -=1
-					get_node("BodyCol").disabled = true
-					MusicController.stop()
-					$AnimatedSprite.play("death")
-					$AudioStreamPlayer2D.playSound("mario_dies")
-					yield(get_tree().create_timer(3.0), "timeout")
-					get_tree().paused = false
-					if get_node("/root/Globals").player["lives"] > 0:
-						get_node("/root/Globals").player["lives"] -=1
-						get_tree().change_scene("res://Screens/Level/LevelScreen.tscn")
-					else:
-						get_tree().change_scene("res://Screens/Game_Over/GameOver.tscn")
+					handle_death()
 					
 #Determening what happens to a big Mario when gets hit by an enemy.
 func _on_DeathDetector_level_up_area_entered(area):
@@ -566,6 +511,44 @@ func handle_block_replace_interaction(collision, new_block, new_item):
 	var item_tile_pos = Vector2(get_node("/root/Globals").tile_pos.x, get_node("/root/Globals").tile_pos.y -1)
 	collision.collider.set_cellv(get_node("/root/Globals").tile_pos, new_id)
 	collision.collider.set_cellv(item_tile_pos, item)
+	
+func handle_death():
+	get_node("BodyCol").disabled = true
+	get_tree().paused = true
+	MusicController.stop()
+	$AnimatedSprite.play("death")
+	$AudioStreamPlayer2D.playSound("mario_dies")
+	yield(get_tree().create_timer(3.0), "timeout")
+	get_tree().paused = false
+	if get_node("/root/Globals").player["lives"] > 0:
+		get_node("/root/Globals").player["lives"] -=1
+		get_tree().change_scene("res://Screens/Level/LevelScreen.tscn")
+	else:
+		get_node("/root/Globals").player["lives"] = 3
+		get_tree().change_scene("res://Screens/Game_Over/GameOver.tscn")
+		
+func handle_end_of_level():
+	$AudioStreamPlayer2D.playSound("flagpole")
+	$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
+	get_node("BodyCol").disabled = true
+	
+	#todo: add level win animation
+	var current_level = get_node("/root/Globals").player["current_scene"].split("-")
+	var world = current_level[0]
+	var level = current_level[1]
+	level = str(int(level) + 1)
+	
+	if(int(level) > 4):
+		level = "1"
+		if(int(world) != 8):
+			world = str(int(world) + 1)
+		else:
+			pass
+			#todo: handle end of game
+	
+	get_node("/root/Globals").player["furthest_level"] = world + "-" + level
+	get_node("/root/Globals").player["current_scene"] = world + "-" + level
+	get_tree().change_scene("Screens/Level/LevelScreen.tscn")
 	
 #logic for the level countdown timer
 func _on_counter_timeout():
