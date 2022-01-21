@@ -101,29 +101,37 @@ func setMap():
 				tile_pos = Vector2(j,i)
 				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite51"))
 				
-			if(mainData[i][j] == 's'):
-				print("Stone - color 3")
+			if(mainData[i][j] == 's'): #stone - c3
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite58"))
 				
-			if(mainData[i][j] == 't'):
-				print("Stone - color 3")
+			if(mainData[i][j] == 't'): #block - c3
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite59"))
 				
-			if(mainData[i][j] == 'u'):
-				print("Brick - color 3")
+			if(mainData[i][j] == 'u'): #brick - c3
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite60"))
 				
-			if(mainData[i][j] == 'v'):
-				print("multi-coin box - c3")
+			if(mainData[i][j] == 'v'): #multi-coin box - c3
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite61"))
 				
-			if(mainData[i][j] == 'w'):
-				print("Power Up - c3")
+			if(mainData[i][j] == 'w'): #power up - c3
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite62"))
 				
-			if(mainData[i][j] == 'x'):
-				print("star - c3")
+			if(mainData[i][j] == 'x'): #star - c3
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite63"))
 				
-			if(mainData[i][j] == 'y'):
-				print("1up - c3")
+			if(mainData[i][j] == 'y'): #1up - c3
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite64"))
 				
-			if(mainData[i][j] == 'z'):
-				print("Dead Box - c3")
+			if(mainData[i][j] == 'z'): #dead box - c3
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite65"))
 				
 			if(mainData[i][j] == '{'):
 				print("Vine - c3")
@@ -217,8 +225,9 @@ func setMap():
 				tile_pos = Vector2(j,i)
 				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite57"))
 				
-			if(mainData[i][j] == 'O'):
-				print("Fire Floor")
+			if(mainData[i][j] == 'O'): #fire top
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite67"))
 				
 			if(mainData[i][j] == 'P'): #Pipe
 				tile_pos = Vector2(j,i)
@@ -226,10 +235,6 @@ func setMap():
 				
 			if(mainData[i][j] == 'Q'):
 				print("Pipe Jump Out")
-				
-			if(mainData[i][j] == 'R'): #Pipe Jump Back
-				tile_pos = Vector2(j,i)
-				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite21"))
 				
 			if(mainData[i][j] == 'S'):
 				print("Side Pipe")
@@ -240,8 +245,9 @@ func setMap():
 			if(mainData[i][j] == 'U'):
 				print("Side Pipe Jump Back")
 				
-			if(mainData[i][j] == 'W'):
-				print("Checkpoint")
+			if(mainData[i][j] == 'W'): #fire bottom
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite68"))
 				
 			if(mainData[i][j] == 'X'):
 				print("Reentry Point for cloud world")
@@ -264,4 +270,8 @@ func setMap():
 			if(mainData[i][j] == '>'): #treetop right
 				tile_pos = Vector2(j,i)
 				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite56"))
+				
+			if(mainData[i][j] == '+'): #player
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite66"))
 	return mainData

@@ -67,6 +67,11 @@ func _ready():
 			node.set_position(Vector2(position.x *16 ,position.y *16)) #sets position of enemy in terms of pixels
 			map.set_cell(position.x, position.y, -1) #this line remove the tile in TileMap
 			
+		if name == "Sprite66":
+			var node = get_node("player")
+			node.set_position(Vector2(position.x *16 ,(position.y-1) *16)) #sets position of enemy in terms of pixels
+			map.set_cell(position.x, position.y, -1) #this line remove the tile in TileMap
+			
 		#dynamic background change
 		if(name == "Sprite33" and get_node("/root/Globals").player["current_scene"] == "1-2"):
 			var tile = map.tile_set.find_tile_by_name("Sprite52")
