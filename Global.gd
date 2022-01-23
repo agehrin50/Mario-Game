@@ -13,6 +13,7 @@ var loaded = false
 var level_skip = false #level skip easter egg
 var luigi = false #luigi easter egg bool
 var path = "res://Levels/1-1.csv"
+var hidden_area_position
 
 var player = {
 	"coins": 0,

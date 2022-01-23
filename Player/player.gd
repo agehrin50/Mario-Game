@@ -348,6 +348,11 @@ func _physics_process(delta):
 				handle_block_replace_interaction(collision, "Sprite4", "Sprite18")
 				$AudioStreamPlayer2D.playSound("powerup_appeared")
 				
+			if(tile_name == "Sprite69" and Input.is_action_pressed("ui_down")):  #player enters pipe
+				handle_enter_pipe()
+			if(tile_name == "Sprite70" and Input.is_action_pressed("ui_down")):  #player enters pipe
+				handle_enter_pipe()
+				
 #Adding a jump after hitting the top of the enemy
 func _on_StepDetector_area_entered(area):
 	if "StompDetector" in area.name:
@@ -550,6 +555,12 @@ func handle_end_of_level():
 	get_node("/root/Globals").player["current_scene"] = world + "-" + level
 	get_tree().change_scene("Screens/Level/LevelScreen.tscn")
 	
+func handle_enter_pipe():
+	$AudioStreamPlayer2D.playSound("pipe")
+	var hidden_pos = get_node("/root/Globals").hidden_area_position
+	set_position(hidden_pos) 
+	#get_tree().change_scene("res://Screens/Pipe/Pipe.tscn")
+	
 #logic for the level countdown timer
 func _on_counter_timeout():
 	get_node("/root/Globals").counter -=1
@@ -558,16 +569,4 @@ func _on_counter_timeout():
 		MusicController.stop()
 		MusicController.play("res://music/hurry-up.wav")
 	if(get_node("/root/Globals").counter == 0):
-		get_tree().paused = true
-		health_level = 0 
-		get_node("BodyCol").disabled = true
-		MusicController.stop()
-		$AnimatedSprite.play("death")
-		$AudioStreamPlayer2D.playSound("mario_dies")
-		yield(get_tree().create_timer(3.0), "timeout")
-		get_tree().paused = false
-		if get_node("/root/Globals").player["lives"] > 0:
-			get_node("/root/Globals").player["lives"] -= 1 
-			get_tree().change_scene("res://Screens/Level/LevelScreen.tscn")
-		else:
-			get_tree().change_scene("res://Screens/Game_Over/GameOver.tscn")
+		handle_death()

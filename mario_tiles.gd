@@ -229,21 +229,30 @@ func setMap():
 				tile_pos = Vector2(j,i)
 				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite67"))
 				
-			if(mainData[i][j] == 'P'): #Pipe
+			if(mainData[i][j] == 'P'): #Pipe - upper left
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite8"))
+				
+			if(mainData[i][j] == 'Q'): #Pipe - upper right
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite9"))
+				
+			if(mainData[i][j] == 'R'): #Pipe - bottom left
 				tile_pos = Vector2(j,i)
 				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite10"))
 				
-			if(mainData[i][j] == 'Q'):
-				print("Pipe Jump Out")
+			if(mainData[i][j] == 'S'): #Pipe - bottom right
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite11"))
 				
-			if(mainData[i][j] == 'S'):
-				print("Side Pipe")
+			#todo: handle side pipe, also V
+			if(mainData[i][j] == 'T'): #Pipe - upper left (leads to cave)
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite69"))
 				
-			if(mainData[i][j] == 'T'):
-				print("Side Pipe Jump Out")
-				
-			if(mainData[i][j] == 'U'):
-				print("Side Pipe Jump Back")
+			if(mainData[i][j] == 'U'): #Pipe - upper right (leads to cave)
+				tile_pos = Vector2(j,i)
+				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite70"))
 				
 			if(mainData[i][j] == 'W'): #fire bottom
 				tile_pos = Vector2(j,i)
@@ -271,7 +280,11 @@ func setMap():
 				tile_pos = Vector2(j,i)
 				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite56"))
 				
-			if(mainData[i][j] == '+'): #player
+			if(mainData[i][j] == '+'): #player spawn
 				tile_pos = Vector2(j,i)
 				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite66"))
+				
+			if(mainData[i][j] == '%'): #player enter pipe location
+				get_node("/root/Globals").hidden_area_position = Vector2(position.x*16,position.y*16)
+				
 	return mainData
