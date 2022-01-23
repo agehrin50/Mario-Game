@@ -285,6 +285,6 @@ func setMap():
 				set_cellv(tile_pos, _tileset.find_tile_by_name("Sprite66"))
 				
 			if(mainData[i][j] == '%'): #player enter pipe location
-				get_node("/root/Globals").hidden_area_position = Vector2(position.x*16,position.y*16)
+				get_node("/root/Globals").hidden_area_position = Vector2(tile_pos.x*16,tile_pos.y*16)
 				
 	return mainData
