@@ -9,6 +9,7 @@ var on_ground = false
 var velocity = Vector2()
 var direction = 1
 var dropped = 0
+var expired = ["Sprite4", "Sprite42", "Sprite65"]
 
 var timer
 func _init():
@@ -20,7 +21,6 @@ func _init():
 func _timeout():
 	direction = 1
 	
-
 func _physics_process(delta):
 	velocity.x = SPEED*direction
 	$AnimatedSprite.play("run")

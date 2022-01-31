@@ -25,7 +25,7 @@ extents = Vector2( 8, 8 )
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 8, 8 )
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 6, 8 )
 
 [node name="Node" type="Node"]
@@ -1047,7 +1047,7 @@ __meta__ = {
 [node name="StaticBody2D" type="StaticBody2D" parent="Sprite12"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite12/StaticBody2D"]
-shape = SubResource( 10 )
+shape = SubResource( 7 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )

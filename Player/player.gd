@@ -34,6 +34,8 @@ func _timeout():
 	timer.stop()
 
 func _ready():
+	get_node("/root/Globals").health_level = health_level
+	
 	if get_node("/root/Globals").luigi: #set luigi skin
 		$AnimatedSprite.set_sprite_frames(luigi)
 		$AnimatedSprite.scale = Vector2(2,2)
@@ -188,7 +190,7 @@ func _physics_process(delta):
 				$AudioStreamPlayer2D.playSound("coin")
 				
 			if(tile_name == "Sprite17" or tile_name == "Sprite49"): #fire power-up
-				health_level = 3 
+				update_health_level(3)
 				get_node("/root/Globals").player["score"] += 1000
 				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
 				handle_block_interaction(collision, "blank_tile")
@@ -218,7 +220,7 @@ func _physics_process(delta):
 				if health_level == 1:
 					get_node("BodyCol").scale.x = 1
 					get_node("BodyCol").scale.y = 1
-					health_level += 1
+					update_health_level(2)
 				#Disables small mario hitbox and enables big mario hitbox
 				get_node("DeathDetector").set_collision_mask(0)
 				get_node("DeathDetector").set_collision_layer(0)
@@ -235,7 +237,7 @@ func _physics_process(delta):
 				#Make Mario invincible for a period of time after getting star
 				get_node("/root/Globals").invincible = 1
 				var temp_health = health_level
-				health_level = 4
+				update_health_level(4)
 				timer.start()
 				$CanvasLayer/HBoxContainer/Score/Current_Score.text = str(get_node("/root/Globals").player["score"])
 				handle_block_interaction(collision, "blank_tile")
@@ -249,7 +251,7 @@ func _physics_process(delta):
 				yield(get_tree().create_timer(12), "timeout") 
 				MusicController.play("res://music/Super_Mario_Bros_Music.ogg")
 				MusicController.seek(temp)
-				health_level = temp_health
+				update_health_level(temp_health)
 				
 				
 			if((tile_name == "Sprite6" or tile_name == "Sprite39") and Input.is_action_pressed("ui_up")): #brick
@@ -352,6 +354,7 @@ func _physics_process(delta):
 				handle_enter_pipe()
 			if(tile_name == "Sprite70" and Input.is_action_pressed("ui_down")):  #player enters pipe
 				handle_enter_pipe()
+			
 				
 #Adding a jump after hitting the top of the enemy
 func _on_StepDetector_area_entered(area):
@@ -394,7 +397,7 @@ func _on_DeathDetector_level_up_area_entered(area):
 							
 					$AudioStreamPlayer2D.playSound("pipe")
 					get_node("/root/Globals").damage = 1
-					health_level -= 1
+					update_health_level(1)
 					timer.wait_time = 1
 					timer.start()
 					#Reducing the hitbox to the size of the hitbox that small Mario uses
@@ -560,6 +563,10 @@ func handle_enter_pipe():
 	var hidden_pos = get_node("/root/Globals").hidden_area_position
 	set_position(hidden_pos) 
 	#get_tree().change_scene("res://Screens/Pipe/Pipe.tscn")
+	
+func update_health_level(health):
+	health_level = health
+	get_node("/root/Globals").health_level = health_level
 	
 #logic for the level countdown timer
 func _on_counter_timeout():

@@ -9,6 +9,7 @@ var velocity = Vector2()
 var direction = 1	#checking enemy's direction
 var is_dead = false	#checking if the enemy is alive
 var falling = 0		#checking if the enemy is falling
+var expired = ["Sprite4", "Sprite42", "Sprite65"]
 
 #Starting position of the enemy
 func _ready():
@@ -41,6 +42,8 @@ func _physics_process(delta):
 		
 	#Collision with blocks
 	var collision
+	var tile_name
+	var health_level
 	
 	#Determening on what tile the enemy is. This is needed for Mario to be able
 	#to kill the enemy when he hits the same block from hte bottom.
@@ -50,11 +53,14 @@ func _physics_process(delta):
 		if collision.collider is TileMap:
 			get_node("/root/Globals").enemy1_tile_pos = collision.collider.world_to_map(position)
 			get_node("/root/Globals").enemy1_tile_pos -= collision.normal
-			get_node("/root/Globals").enemy1_tile_pos.y += 1
-			get_node("/root/Globals").enemy1_tile_pos.x += 1
-	
-	#If Mario is hitting the same block the enemy is on, the enemy is going to die.		
-	if get_node("/root/Globals").enemy1_tile_pos == get_node("/root/Globals").tile_pos and get_node("/root/Globals").damage == 0:
+			#get_node("/root/Globals").enemy1_tile_pos.y += 1
+			#get_node("/root/Globals").enemy1_tile_pos.x += 1
+			
+			tile_name = collision.collider.tile_set.tile_get_name(collision.collider.get_cellv(get_node("/root/Globals").enemy3_tile_pos))
+			health_level = get_node("/root/Globals").health_level
+		
+	#If Mario is hitting the same block the enemy is on, the enemy is going to die.	
+	if get_node("/root/Globals").enemy1_tile_pos == get_node("/root/Globals").tile_pos and get_node("/root/Globals").damage == 0 and health_level > 1:
 		queue_free()
 
 #Enemy dies when gets hit from the top by Mario.

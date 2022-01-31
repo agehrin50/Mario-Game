@@ -11,6 +11,7 @@ var direction = -1		#Checking the direction ov movement
 var stunned = 1		#checking if in stunned state
 var falling = 0		#Checking if falling
 var timer #Used to determine how long the enemy will be in the stunned state.
+var expired = ["Sprite4", "Sprite42", "Sprite65"]
 
 func _on_Ground_Enemy_2_ready():
 	$AnimatedSprite.play("run")
@@ -58,6 +59,7 @@ func _physics_process(delta):
 	var item
 	var item_tile_pos
 	var item_collision
+	var health_level
 
 	#Determening on what tile the enemy is. This is needed for Mario to be able
 	#to kill the enemy when he hits the same block from the bottom.
@@ -67,11 +69,11 @@ func _physics_process(delta):
 		if collision.collider is TileMap:
 			get_node("/root/Globals").enemy2_tile_pos = collision.collider.world_to_map(position)
 			get_node("/root/Globals").enemy2_tile_pos -= collision.normal
-			get_node("/root/Globals").enemy2_tile_pos.y += 1
-			get_node("/root/Globals").enemy2_tile_pos.x += 1
-	
-	#If Mario is hitting the same block the enemy is on, the enemy is going to die.		
-	if get_node("/root/Globals").enemy2_tile_pos == get_node("/root/Globals").tile_pos and get_node("/root/Globals").damage == 0:
+			tile_name = collision.collider.tile_set.tile_get_name(collision.collider.get_cellv(get_node("/root/Globals").enemy3_tile_pos))
+			health_level = get_node("/root/Globals").health_level
+		
+	#If Mario is hitting the same block the enemy is on, the enemy is going to die.	
+	if get_node("/root/Globals").enemy2_tile_pos == get_node("/root/Globals").tile_pos and get_node("/root/Globals").damage == 0 and health_level > 1:
 		queue_free()
 
 #Collisions on the top of the enemy

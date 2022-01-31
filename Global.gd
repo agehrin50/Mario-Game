@@ -2,6 +2,7 @@ extends Node
 var current_scene
 var invincible = 0		#Checking if Mario is invincible
 var damage = 0  #Checking if mario is invincible after getting hit by enemy
+var health_level
 var tile_pos = Vector2(0,0)#keeps the position of the tile the player colided with
 var enemy1_tile_pos = Vector2(1,1) #keeps the position of the tile the enemy 1 colided with
 var enemy2_tile_pos = Vector2(2,2) #keeps the position of the tile the enemy 2 colided with
